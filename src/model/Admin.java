@@ -1,13 +1,17 @@
 package model;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import storage.DocGhiAdmin;
 
-public class Admin {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Admin implements Serializable {
     private String username;
     private String password;
+
+    public Admin() {
+    }
 
     public Admin(String username, String password) {
         this.username = username;
@@ -29,10 +33,21 @@ public class Admin {
     public void setPassword(String password) {
         this.password = password;
     }
+    public static void defaultAdmin(){
+        List<StringBuilder> adminList = new ArrayList<>();
+        StringBuilder adminAcc = new StringBuilder();
+        adminAcc.append("admin").append("|").append("admin");
+        adminList.add(adminAcc);
+        new DocGhiAdmin().writeFile(adminList, "admin.bin");
+    }
 
-//    public static void main(String[] args) {
-//        File file = new File("account.txt");
-//        OutputStream os = new FileOutputStream(file);
-//        ObjectOutputStream oss = new ObjectOutputStream(os);
-//    }
+    public static void createAdmin(){
+        List<StringBuilder> adminList = new ArrayList<>();
+        StringBuilder adminAcc = new StringBuilder();
+        String username ="admin";
+        String password ="admin";
+        adminAcc.append(username).append("|").append(password).append("\n");
+        adminList.add(adminAcc);
+        new DocGhiAdmin().writeFile(adminList,"admin.bin");
+    }
 }

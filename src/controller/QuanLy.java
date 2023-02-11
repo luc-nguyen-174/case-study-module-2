@@ -1,7 +1,7 @@
 package controller;
 
 import model.NhanVien;
-import storage.DocGhiFile;
+import storage.DocGhiObj;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,11 +23,11 @@ public class QuanLy implements Serializable {
     }
     public void themNhanViens(NhanVien nhanVien) {
         quanLyNhanVien.add(nhanVien);
-        DocGhiFile.ghiFile(quanLyNhanVien,"manager.bin");
+        new DocGhiObj().writeFile(quanLyNhanVien, "manager.bin");
     }
     public void xoaNhanVien(String id){
         quanLyNhanVien.remove(Integer.parseInt(id));
-        DocGhiFile.ghiFile(quanLyNhanVien,"manager.bin");
+        new DocGhiObj().writeFile(quanLyNhanVien, "manager.bin");
     }
     public void hienThiNhanVien(){
         for(NhanVien nhanVien : quanLyNhanVien){
