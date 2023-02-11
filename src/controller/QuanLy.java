@@ -34,4 +34,8 @@ public class QuanLy implements Serializable {
             System.out.println(nhanVien);
         }
     }
+    public void xoaTatCaNhanVien(){
+        quanLyNhanVien.clear();
+        new DocGhiObj().writeFile(quanLyNhanVien,"manager.bin");
+    }
 }

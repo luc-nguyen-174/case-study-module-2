@@ -72,6 +72,28 @@ public class Client {
 
                                 if (admin.equals(quanLyAdminAcc.getAdminAcc().toString())) {
                                     System.out.println("Dang nhap thanh cong!");
+                                    int success = 0;
+                                    do {
+                                        System.out.print("""
+                                                -------------------------------------
+                                                |   1. Hien thi danh sach nhan vien |
+                                                |   2. Them nhan vien               |
+                                                |   3. Sua nhan vien theo id        |
+                                                |   4. Xoa nhan vien theo id        |
+                                                |   5. Tim nhan vien theo id        |
+                                                |   99. Clear toan bo nhan vien     |
+                                                |   0. Thoat                        |
+                                                -------------------------------------
+                                                                """);
+                                        System.out.print("Moi nhap lua chon: ");
+                                        success = scanner.nextInt();
+                                        switch (success) {
+                                            case 0 -> System.exit(0);
+                                            case 1 -> quanLy.hienThiNhanVien();
+                                            case 99 -> quanLy.xoaTatCaNhanVien();
+                                        }
+                                    } while (success != 0);
+
                                 } else {
                                     count++;
                                     System.out.println(count);
