@@ -6,13 +6,13 @@ import model.NhanVien;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class DocGhiAdmin implements DocGhiFile<List<StringBuilder>> {
+
+public class DocGhiAdmin implements DocGhiFile<List<String>> {
 
 
     @Override
-    public void writeFile(List<StringBuilder> admin, String path) {
+    public void writeFile(List<String> admin, String path) {
         File f = new File(path);
         OutputStream os = null;
         try {
@@ -44,7 +44,7 @@ public class DocGhiAdmin implements DocGhiFile<List<StringBuilder>> {
     }
 
     @Override
-    public List<StringBuilder> readFile(String path) {
+    public List<String> readFile(String path) {
         File file = new File(path);
         InputStream is = null;
         try {
@@ -60,9 +60,9 @@ public class DocGhiAdmin implements DocGhiFile<List<StringBuilder>> {
         } finally {
             if (ois != null) {
 
-                List<StringBuilder> admin;
+                List<String> admin;
                 try {
-                    admin = (List<StringBuilder>) ois.readObject();
+                    admin = (List<String>) ois.readObject();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (ClassNotFoundException e) {

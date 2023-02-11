@@ -33,21 +33,4 @@ public class Admin implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public static void defaultAdmin(){
-        List<StringBuilder> adminList = new ArrayList<>();
-        StringBuilder adminAcc = new StringBuilder();
-        adminAcc.append("admin").append("|").append("admin");
-        adminList.add(adminAcc);
-        new DocGhiAdmin().writeFile(adminList, "admin.bin");
-    }
-
-    public static void createAdmin(){
-        List<StringBuilder> adminList = new ArrayList<>();
-        StringBuilder adminAcc = new StringBuilder();
-        String username ="admin";
-        String password ="admin";
-        adminAcc.append(username).append("|").append(password).append("\n");
-        adminList.add(adminAcc);
-        new DocGhiAdmin().writeFile(adminList,"admin.bin");
-    }
 }

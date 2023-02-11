@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuanLy implements Serializable {
-    List<NhanVien> quanLyNhanVien = new ArrayList<>();
+    List<NhanVien> quanLyNhanVien;
 
     public QuanLy(List<NhanVien> nhanViens) {
         this.quanLyNhanVien = nhanViens;
