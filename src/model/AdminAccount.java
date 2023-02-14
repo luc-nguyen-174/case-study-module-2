@@ -1,19 +1,20 @@
 package model;
 
-import storage.DocGhiAdmin;
+import storage.ReadAndWrite;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Admin implements Serializable {
+public class AdminAccount implements Serializable {
     private String username;
+
     private String password;
 
-    public Admin() {
+    public AdminAccount() {
     }
 
-    public Admin(String username, String password) {
+    public AdminAccount(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -32,5 +33,11 @@ public class Admin implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    @Override
+    public String toString() {
+        return username + "|" + password;
     }
 }

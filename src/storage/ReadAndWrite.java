@@ -1,29 +1,38 @@
 package storage;
 
-import model.NhanVien;
-
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DocGhiObj implements DocGhiFile<List<NhanVien>> {
+public class ReadAndWrite<T> {
+    private ReadAndWrite() {
+    }
 
-    @Override
-    public void writeFile(List<NhanVien> nhanViens, String path) {
-        File file = new File(path);
+    private static ReadAndWrite instance;
+
+    public static ReadAndWrite getInstance() {
+        if (instance == null) {
+            instance = new ReadAndWrite();
+        }
+        return instance;
+    }
+
+    public boolean writeFile(T file, String path) {
+        File f = new File(path);
         OutputStream os = null;
         try {
-            os = new FileOutputStream(file);
+            os = new FileOutputStream(f);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
-        ObjectOutputStream oos;
+        ObjectOutputStream oos = null;
         try {
             oos = new ObjectOutputStream(os);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try {
-            oos.writeObject(nhanViens);
+            oos.writeObject(file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -37,40 +46,36 @@ public class DocGhiObj implements DocGhiFile<List<NhanVien>> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return true;
     }
 
-    @Override
-    public List<NhanVien> readFile(String path) {
-        File docFile = new File(path);
-
-        InputStream in = null;
+    public T readFile(String path) {
+        InputStream is = null;
         try {
-            in = new FileInputStream(docFile);
+            is = new FileInputStream(path);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-
         ObjectInputStream ois = null;
         try {
-            ois = new ObjectInputStream(in);
+            ois = new ObjectInputStream(is);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            if (ois != null) {
-                List<NhanVien> nhanViens;
+        }
+        finally {
+            if (ois != null){
+                T writeObj = null;
                 try {
-                    nhanViens = (List<NhanVien>) ois.readObject();
+                    writeObj = (T) ois.readObject();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage());
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-                return nhanViens;
-            } else {
-                return new ArrayList<>();
+                return writeObj;
+            }else{
+                return (T) new ArrayList<>();
             }
         }
     }
-
-
 }
