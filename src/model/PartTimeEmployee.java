@@ -8,8 +8,8 @@ public class PartTimeEmployee extends Employee implements SalaryCount, Serializa
     public PartTimeEmployee() {
     }
 
-    public PartTimeEmployee(String id, String name, String phoneNumbers, String address, String email, double workTimes) {
-        super(id, name, phoneNumbers, address, email);
+    public PartTimeEmployee(String id, String name, String dateOfBirth, String phoneNumbers, String address, String email, double workTimes) {
+        super(id, name, dateOfBirth, phoneNumbers, address, email);
         this.workTimes = workTimes;
     }
 

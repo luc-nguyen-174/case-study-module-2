@@ -5,6 +5,7 @@ import java.io.Serializable;
 public abstract class Employee implements Serializable {
     private String id;
     private String name;
+    private String dateOfBirth;
     private String phoneNumbers;
     private String address;
     private String email;
@@ -12,9 +13,10 @@ public abstract class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(String id, String name, String phoneNumbers, String address, String email) {
+    public Employee(String id, String name,String dateOfBirth, String phoneNumbers, String address, String email) {
         this.id = id;
         this.name = name;
+        this.dateOfBirth = dateOfBirth;
         this.phoneNumbers = phoneNumbers;
         this.address = address;
         this.email = email;
@@ -30,6 +32,14 @@ public abstract class Employee implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setName(String name) {
@@ -62,11 +72,12 @@ public abstract class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "NhanVien{" +
-                "maNv='" + id + '\'' +
-                ", ten='" + name + '\'' +
-                ", sdt='" + phoneNumbers + '\'' +
-                ", diaChi='" + address + '\'' +
+        return "Employee{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", phoneNumbers='" + phoneNumbers + '\'' +
+                ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

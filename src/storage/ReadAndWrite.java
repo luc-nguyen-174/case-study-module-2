@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadAndWrite<T> {
+public class ReadAndWrite<T> implements IReadAndWrite {
     private ReadAndWrite() {
     }
 
@@ -17,7 +17,8 @@ public class ReadAndWrite<T> {
         return instance;
     }
 
-    public boolean writeFile(T file, String path) {
+    @Override
+    public boolean writeFile(Object file, String path) {
         File f = new File(path);
         OutputStream os = null;
         try {
@@ -49,6 +50,7 @@ public class ReadAndWrite<T> {
         return true;
     }
 
+    @Override
     public T readFile(String path) {
         InputStream is = null;
         try {

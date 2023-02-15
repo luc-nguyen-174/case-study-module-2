@@ -7,6 +7,7 @@ import model.AdminAccount;
 import model.Employee;
 import model.FullTimeEmployee;
 import model.PartTimeEmployee;
+import storage.IReadAndWrite;
 import storage.ReadAndWrite;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Scanner;
 
 public class Client {
     public static Scanner scanner = new Scanner(System.in);
+    public static IReadAndWrite<AdminAccount> readAndWrite;
     public static List<Employee> employees;
 
     public static Management management = new Management(employees);
@@ -21,6 +23,7 @@ public class Client {
     public static List<AdminAccount> accounts;
 
     static {
+        readAndWrite = ReadAndWrite.getInstance();
         accounts = (List<AdminAccount>) ReadAndWrite.getInstance().readFile("admin.bin");
         employees = (List<Employee>) ReadAndWrite.getInstance().readFile("management.bin");
     }
@@ -29,15 +32,15 @@ public class Client {
 
 
     public static void main(String[] args) {
-//        AdminAccount adminAccount = new AdminAccount("admin", "admin");
-//        admin.setAdmin(adminAccount);
+        AdminAccount adminAccount = new AdminAccount("admin", "admin");
+        admin.setAdmin(adminAccount);
 
-        Employee test1 = new FullTimeEmployee("1", "test", "0xxxxxxxx", "test",
+        Employee test1 = new FullTimeEmployee("1", "test","01/01/1991", "0xxxxxxxx", "test@gmail.com",
                 "email@gmail.com", 10000000, 1000000, 500000);
-        Employee test2 = new PartTimeEmployee("2", "test2", "012345xx", "test2",
+        Employee test2 = new PartTimeEmployee("2", "test2","02/02/1991", "012345xx", "test2@gmail.com",
                 "email2@gmail.com", 15.5);
-//        management.addEmployee(test1);
-//        management.addEmployee(test2);
+        management.addEmployee(test1);
+        management.addEmployee(test2);
         int rollChoice = 0;
         int loginFailCount = 0;
         do {
@@ -95,8 +98,33 @@ public class Client {
                                             case 0 -> System.exit(0);
                                             case 1 -> management.display();
                                             case 2 -> {
+                                                System.out.print("Nhan vien chinh thuc/nhan vien part-time: (1/2)");
+                                                int role = scanner.nextInt();
                                                 System.out.print("Nhap ma nhan vien: ");
-                                                String maNv = scanner.nextLine();
+                                                String id = scanner.nextLine();
+                                                System.out.print("Nhap ten nhan vien: ");
+                                                String name = scanner.nextLine();
+                                                System.out.println("Ngay sinh: (dd/mm/yyyy)");
+                                                String dateOfBirth = scanner.nextLine();
+                                                System.out.print("Nhap so dien thoai: ");
+                                                String phoneNumber = scanner.nextLine();
+                                                System.out.print("Nhap dia chi: ");
+                                                String address = scanner.nextLine();
+                                                System.out.print("Nhap email:");
+                                                String email = scanner.nextLine();
+                                                if (role == 1) {
+                                                    System.out.print("Nhap luong co ban:");
+                                                    int basicSalary = scanner.nextInt();
+                                                    System.out.print("Nhap luong thuong thang nay");
+                                                    int bonus = scanner.nextInt();
+                                                    System.out.print("Nhap so tien phat");
+                                                    int fine = scanner.nextInt();
+                                                    new FullTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
+                                                } else if (role == 2) {
+                                                    System.out.println("Nhap vao so gio lam ");
+                                                    double workedTime = scanner.nextDouble();
+                                                    new PartTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workedTime);
+                                                }
                                             }
                                             case 3 -> {
                                                 System.out.println("Sua nhan vien theo id");

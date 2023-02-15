@@ -10,8 +10,8 @@ public class FullTimeEmployee extends Employee implements SalaryCount, Serializa
     public FullTimeEmployee() {
     }
 
-    public FullTimeEmployee(String id, String name, String phoneNumbers, String address, String email, int basicSalary, int bonus, int fine) {
-        super(id, name, phoneNumbers, address, email);
+    public FullTimeEmployee(String id, String name, String dateOfBirth, String phoneNumbers, String address, String email, int basicSalary, int bonus, int fine) {
+        super(id, name, dateOfBirth, phoneNumbers, address, email);
         this.basicSalary = basicSalary;
         this.bonus = bonus;
         this.fine = fine;
