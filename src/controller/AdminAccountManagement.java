@@ -21,7 +21,7 @@ public class AdminAccountManagement{
     public void setAdminAccounts(List<AdminAccount> adminAccounts) {
         this.adminAccounts = adminAccounts;
     }
-    public void add(AdminAccount accounts) {
+    public void setAdmin(AdminAccount accounts) {
         adminAccounts.add(accounts);
         ReadAndWrite.getInstance().writeFile(adminAccounts,"admin.bin");
     }

@@ -14,22 +14,23 @@ import java.util.Scanner;
 
 public class Client {
     public static Scanner scanner = new Scanner(System.in);
-    public static List<Employee> employees = (List<Employee>) ReadAndWrite.getInstance().readFile("management.bin");
+    public static List<Employee> employees;
+
     public static Management management = new Management(employees);
 
-    public static List<AdminAccount> accounts = (List<AdminAccount>) ReadAndWrite.getInstance().readFile("admin.bin");
+    public static List<AdminAccount> accounts;
+
+    static {
+        accounts = (List<AdminAccount>) ReadAndWrite.getInstance().readFile("admin.bin");
+        employees = (List<Employee>) ReadAndWrite.getInstance().readFile("management.bin");
+    }
+
     public static AdminAccountManagement admin = new AdminAccountManagement(accounts);
 
 
-
-
     public static void main(String[] args) {
-        AdminAccount adminAccount= new AdminAccount("admin","admin");
-        admin.add(adminAccount);
-        System.out.println(adminAccount.getUsername());
-        System.out.println(adminAccount.getPassword());
-        System.out.println(adminAccount);
-        management.display();
+//        AdminAccount adminAccount = new AdminAccount("admin", "admin");
+//        admin.setAdmin(adminAccount);
 
         Employee test1 = new FullTimeEmployee("1", "test", "0xxxxxxxx", "test",
                 "email@gmail.com", 10000000, 1000000, 500000);
@@ -37,7 +38,6 @@ public class Client {
                 "email2@gmail.com", 15.5);
 //        management.addEmployee(test1);
 //        management.addEmployee(test2);
-
         int rollChoice = 0;
         int loginFailCount = 0;
         do {
@@ -68,10 +68,13 @@ public class Client {
                             case 1 -> {
                                 System.out.print("Tai khoan:");
                                 scanner.nextLine();
-                                String account = scanner.nextLine();
+                                String username = scanner.nextLine();
                                 System.out.print("Mat khau:");
                                 String password = scanner.nextLine();
-                                if (true) {
+
+
+                                if (username.equals(accounts.get(0).getUsername()) &&
+                                        password.equals(accounts.get(0).getPassword())) {
                                     System.out.println("Dang nhap thanh cong!");
                                     int success = 0;
                                     do {
