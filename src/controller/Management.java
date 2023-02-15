@@ -54,4 +54,5 @@ public class Management implements Serializable {
         employeeList.clear();
         ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
     }
+
 }

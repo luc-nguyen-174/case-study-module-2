@@ -23,9 +23,8 @@ public class PartTimeEmployee extends Employee implements SalaryCount, Serializa
 
     @Override
     public String toString() {
-        return "NhanVienParttime{" +
-                "gioLam=" + workTimes +
-                "} " + super.toString();
+        return super.toString() + "\nvai tro: nhan vien ban thoi gian" +
+                ", gio lam: " + workTimes + " gio.";
     }
 
     @Override

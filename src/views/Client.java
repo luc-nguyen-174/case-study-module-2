@@ -35,7 +35,7 @@ public class Client {
                     |  0. Thoat                         |
                     -------------------------------------
                     """);
-            System.out.print("Moi nhap lua chon:");
+            System.out.print("Moi nhap lua chon: ");
             rollChoice = scanner.nextInt();
             switch (rollChoice) {
                 case 0 -> System.exit(0);
@@ -48,15 +48,15 @@ public class Client {
                                 |   2. Thoat                        |
                                 -------------------------------------
                                 """);
-                        System.out.print("Moi nhap lua chon:");
+                        System.out.print("Moi nhap lua chon: ");
                         adminChoice = scanner.nextInt();
 
                         switch (adminChoice) {
                             case 1 -> {
-                                System.out.print("Tai khoan:");
+                                System.out.print("Tai khoan: ");
                                 scanner.nextLine();
                                 String username = scanner.nextLine();
-                                System.out.print("Mat khau:");
+                                System.out.print("Mat khau: ");
                                 String password = scanner.nextLine();
 
 
@@ -80,32 +80,46 @@ public class Client {
                                         success = scanner.nextInt();
                                         switch (success) {
                                             case 0 -> System.exit(0);
-                                            case 1 -> {
-                                                int displayChoice;
-                                                do {
-                                                    System.out.println("""
-                                                            ----------------------------------------------------
-                                                            |   1. Hien thi toan bo nhan vien                  |
-                                                            |   2. Hien thi toan bo nhan vien chinh thuc       |
-                                                            |   3. Hien thi toan bo nhan vien part-time        |
-                                                            |   4. Tro ve menu truoc                           |
-                                                            |   5. Thoat khoi chuong trinh                     |
-                                                            ----------------------------------------------------
-                                                            """);
-                                                    System.out.print("Moi nhap lua chon: ");
-                                                    displayChoice = scanner.nextInt();
-                                                    switch (displayChoice) {
-                                                        case 1 -> management.display();
-                                                        case 2 -> management.fulltimeEmployeeDisplay();
-                                                        case 3 -> management.parttimeEmployeeDisplay();
-                                                        case 4 -> System.out.println("Tro ve memu truoc");
-                                                        case 5 -> System.exit(0);
-                                                    }
-                                                } while (displayChoice != 0);
-                                            }
+                                            case 1 -> displayMenu();
                                             case 2 -> createNewEmployee();
                                             case 3 -> {
-                                                System.out.println("Sua nhan vien theo id");
+                                                System.out.print("Nhap id nhan vien:");
+                                                scanner.nextLine();
+                                                String findById = scanner.nextLine();
+                                                for (Employee employee : employees) {
+                                                    if (findById.equals(employee.getId())) {
+                                                        String id = employee.getId();
+                                                        System.out.print("Nhap ten: ");
+                                                        String name = scanner.nextLine();
+                                                        System.out.print("Nhap ngay sinh:");
+                                                        String dateOfBirth = scanner.nextLine();
+                                                        System.out.print("Nhap vao so dien thoai: ");
+                                                        String phoneNumber = scanner.nextLine();
+                                                        System.out.print("Nhap dia chi: ");
+                                                        String address = scanner.nextLine();
+                                                        System.out.print("Nhap email: ");
+                                                        String email = scanner.nextLine();
+                                                        if (employee instanceof FullTimeEmployee) {
+                                                            System.out.print("Nhap luong:");
+                                                            int basicSalary = scanner.nextInt();
+                                                            System.out.print("Nhap luong thuong: ");
+                                                            int bonus = scanner.nextInt();
+                                                            System.out.print("Nhap so tien bi phat: ");
+                                                            int fine = scanner.nextInt();
+                                                            Employee employeeInput = new FullTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
+                                                            management.addEmployee(employeeInput);
+                                                            System.out.println("Nhan vien "+ id + " da duoc thay doi thong tin thanh cong!");
+                                                        } else if (employee instanceof PartTimeEmployee){
+                                                            System.out.print("Nhap so gio lam: ");
+                                                            double workTime = scanner.nextDouble();
+                                                            Employee employeeInput = new PartTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workTime);
+                                                            management.addEmployee(employeeInput);
+                                                            System.out.println("Nhan vien "+ id + " da duoc thay doi thong tin thanh cong!");
+                                                        }
+                                                    }else{
+                                                        System.out.println("ID vua nhap khong ton tai!");
+                                                    }
+                                                }
                                             }
                                             case 4 -> {
                                                 System.out.println("Xoa nhan vien theo id");
@@ -145,21 +159,59 @@ public class Client {
         } while (rollChoice != 0);
     }
 
+    private static void displayMenu() {
+        int displayChoice;
+        do {
+            System.out.println("""
+                    ----------------------------------------------------
+                    |   1. Hien thi toan bo nhan vien                  |
+                    |   2. Hien thi toan bo nhan vien chinh thuc       |
+                    |   3. Hien thi toan bo nhan vien part-time        |
+                    |   4. Tro ve menu truoc                           |
+                    |   5. Thoat khoi chuong trinh                     |
+                    ----------------------------------------------------
+                    """);
+            System.out.print("Moi nhap lua chon: ");
+            displayChoice = scanner.nextInt();
+            switch (displayChoice) {
+                case 1 -> {
+                    if (management != null) {
+                        management.display();
+                    } else {
+                        System.out.println("Khong co nhan vien");
+                    }
+                }
+                case 2 -> {
+                    if (management != null)
+                        management.fulltimeEmployeeDisplay();
+                    else System.out.println("Khong co nhan vien");
+                }
+                case 3 -> {
+                    if (management != null) {
+                        management.parttimeEmployeeDisplay();
+                    } else System.out.println("Khong co nhan vien");
+                }
+                case 4 -> System.out.println("Tro ve menu truoc");
+                case 5 -> System.exit(0);
+            }
+        } while (displayChoice != 0);
+    }
+
     private static void createNewEmployee() {
-        System.out.print("Nhan vien chinh thuc/nhan vien part-time (1/2): ");
-        int role = scanner.nextInt();
-        System.out.print("Nhap ma nhan vien: ");
-        String id = scanner.nextLine();
+        System.out.println("Nhan vien chinh thuc/nhan vien part-time (1/2): ");
+        int role= scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Nhap ten nhan vien: ");
+        System.out.println("Nhap ma nhan vien: ");
+        String id = scanner.nextLine();
+        System.out.println("Nhap ten nhan vien: ");
         String name = scanner.nextLine();
-        System.out.print("Ngay sinh (dd/mm/yyyy): ");
+        System.out.println("Ngay sinh (dd/mm/yyyy): ");
         String dateOfBirth = scanner.nextLine();
-        System.out.print("Nhap so dien thoai: ");
+        System.out.println("Nhap so dien thoai: ");
         String phoneNumber = scanner.nextLine();
-        System.out.print("Nhap dia chi: ");
+        System.out.println("Nhap dia chi: ");
         String address = scanner.nextLine();
-        System.out.print("Nhap email: ");
+        System.out.println("Nhap email: ");
         String email = scanner.nextLine();
         if (role == 1) {
             System.out.print("Nhap luong co ban: ");

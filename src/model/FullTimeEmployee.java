@@ -43,11 +43,10 @@ public class FullTimeEmployee extends Employee implements SalaryCount, Serializa
 
     @Override
     public String toString() {
-        return "NhanVienChinhThuc{" +
-                "luongCung=" + basicSalary +
-                ", luongThuong=" + bonus +
-                ", phat=" + fine +
-                "} " + super.toString();
+        return super.toString() + ",\n vai tro: nhan vien chinh thuc" +
+                ", luong cung: " + basicSalary + "vnd" +
+                ", luong thuong: " + bonus + "vnd" +
+                ", phat " + fine + "vnd";
     }
 
     @Override
