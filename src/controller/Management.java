@@ -3,6 +3,7 @@ package controller;
 import model.Employee;
 import model.FullTimeEmployee;
 import model.PartTimeEmployee;
+import storage.IReadAndWrite;
 import storage.ReadAndWrite;
 
 import java.io.Serializable;
@@ -35,14 +36,14 @@ public class Management implements Serializable {
             System.out.println(employee);
         }
     }
-    public void FulltimeEmployeeDisplay(){
+    public void fulltimeEmployeeDisplay(){
         for (Employee employee : employeeList){
             if (employee instanceof FullTimeEmployee){
                 System.out.println(employee);
             }
         }
     }
-    public void ParttimeEmployeeDisplay(){
+    public void parttimeEmployeeDisplay(){
         for (Employee employee : employeeList){
             if (employee instanceof PartTimeEmployee){
                 System.out.println(employee);

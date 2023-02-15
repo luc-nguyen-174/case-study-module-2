@@ -8,7 +8,7 @@ import java.util.*;
 
 
 public class AdminAccountManagement{
-    List<AdminAccount> adminAccounts = new ArrayList<AdminAccount>();
+    List<AdminAccount> adminAccounts;
 
     public AdminAccountManagement(List<AdminAccount> accounts) {
         this.adminAccounts = accounts;
