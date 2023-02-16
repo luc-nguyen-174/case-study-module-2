@@ -3,7 +3,6 @@ package controller;
 import model.Employee;
 import model.FullTimeEmployee;
 import model.PartTimeEmployee;
-import storage.IReadAndWrite;
 import storage.ReadAndWrite;
 
 import java.io.Serializable;
@@ -28,7 +27,14 @@ public class Management implements Serializable {
         ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
     }
     public void removeEmployee(String id){
-        employeeList.remove(Integer.parseInt(id));
+        for ( int i = 0; i < employeeList.size(); i++ )
+            if( employeeList.get(i).getId().equals(id)){
+                employeeList.remove(i);
+                System.out.println("Nhan vien da duoc xoa");
+                break;
+            }else{
+                System.out.println("Khong co thanh vien nao can xoa.");
+            }
         ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
     }
     public void display(){
@@ -50,9 +56,8 @@ public class Management implements Serializable {
             }
         }
     }
-    public void xoaTatCaNhanVien(){
+    public void deleteAllStaff(){
         employeeList.clear();
         ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
     }
-
 }

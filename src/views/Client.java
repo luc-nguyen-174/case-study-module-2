@@ -24,6 +24,10 @@ public class Client {
     public static AdminAccountManagement admin = new AdminAccountManagement(accounts);
 
     public static void main(String[] args) {
+        for(Employee employee : employees){
+            System.out.println(employee.getId());
+        }
+        management.display();
 //        defaultData();
         int rollChoice = 0;
         int loginFailCount = 0;
@@ -84,53 +88,68 @@ public class Client {
                                             case 2 -> createNewEmployee();
                                             case 3 -> {
                                                 System.out.print("Nhap id nhan vien:");
-                                                scanner.nextLine();
+
                                                 String findById = scanner.nextLine();
+                                                scanner.nextLine();
                                                 for (Employee employee : employees) {
                                                     if (findById.equals(employee.getId())) {
-                                                        String id = employee.getId();
                                                         System.out.print("Nhap ten: ");
                                                         String name = scanner.nextLine();
+                                                        employee.setName(name);
+
                                                         System.out.print("Nhap ngay sinh:");
                                                         String dateOfBirth = scanner.nextLine();
+                                                        employee.setDateOfBirth(dateOfBirth);
+
                                                         System.out.print("Nhap vao so dien thoai: ");
                                                         String phoneNumber = scanner.nextLine();
+                                                        employee.setPhoneNumbers(phoneNumber);
+
                                                         System.out.print("Nhap dia chi: ");
                                                         String address = scanner.nextLine();
+                                                        employee.setAddress(address);
+
                                                         System.out.print("Nhap email: ");
                                                         String email = scanner.nextLine();
+                                                        employee.setEmail(email);
                                                         if (employee instanceof FullTimeEmployee) {
                                                             System.out.print("Nhap luong:");
                                                             int basicSalary = scanner.nextInt();
+                                                            ((FullTimeEmployee) employee).setBasicSalary(basicSalary);
+
                                                             System.out.print("Nhap luong thuong: ");
                                                             int bonus = scanner.nextInt();
+                                                            ((FullTimeEmployee) employee).setBonus(bonus);
+
                                                             System.out.print("Nhap so tien bi phat: ");
                                                             int fine = scanner.nextInt();
-                                                            Employee employeeInput = new FullTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
-                                                            management.addEmployee(employeeInput);
-                                                            System.out.println("Nhan vien "+ id + " da duoc thay doi thong tin thanh cong!");
-                                                        } else if (employee instanceof PartTimeEmployee){
+                                                            ((FullTimeEmployee) employee).setFine(fine);
+                                                            System.out.println("Nhan vien " + employee.getId() + " da duoc thay doi thong tin thanh cong!");
+                                                        } else if (employee instanceof PartTimeEmployee) {
                                                             System.out.print("Nhap so gio lam: ");
                                                             double workTime = scanner.nextDouble();
-                                                            Employee employeeInput = new PartTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workTime);
-                                                            management.addEmployee(employeeInput);
-                                                            System.out.println("Nhan vien "+ id + " da duoc thay doi thong tin thanh cong!");
+                                                            ((PartTimeEmployee) employee).setWorkTimes(workTime);
+
+                                                            System.out.println("Nhan vien " + employee.getId() + " da duoc thay doi thong tin thanh cong!");
                                                         }
-                                                    }else{
+                                                    } else {
                                                         System.out.println("ID vua nhap khong ton tai!");
                                                     }
                                                 }
                                             }
                                             case 4 -> {
                                                 System.out.println("Xoa nhan vien theo id");
+                                                System.out.print("Nhap id can xoa: ");
+                                                scanner.nextLine();
+                                                String id = scanner.nextLine();
+                                                management.removeEmployee(id);
                                             }
                                             case 5 -> {
                                                 System.out.println("Tim nhan vien theo id");
                                             }
-                                            case 99 -> management.xoaTatCaNhanVien();
+                                            case 99 -> management.deleteAllStaff();
                                         }
                                     } while (success != 0);
-
                                 } else {
                                     loginFailCount++;
                                     System.out.println(loginFailCount);
@@ -191,15 +210,21 @@ public class Client {
                         management.parttimeEmployeeDisplay();
                     } else System.out.println("Khong co nhan vien");
                 }
-                case 4 -> System.out.println("Tro ve menu truoc");
+                case 4 -> System.out.println("Tro ve memu truoc");
                 case 5 -> System.exit(0);
             }
         } while (displayChoice != 0);
     }
 
     private static void createNewEmployee() {
-        System.out.println("Nhan vien chinh thuc/nhan vien part-time (1/2): ");
-        int role= scanner.nextInt();
+        int role = 0;
+        do {
+            System.out.println("Nhan vien chinh thuc/nhan vien part-time (1/2): ");
+            role = scanner.nextInt();
+            if (role != 1 && role != 2) {
+                System.out.println("Gia tri khong hop le, moi nhap lai.");
+            }
+        } while (role != 1 && role != 2);
         scanner.nextLine();
         System.out.println("Nhap ma nhan vien: ");
         String id = scanner.nextLine();
@@ -231,6 +256,7 @@ public class Client {
             System.out.println("Dan them nhan vien " + name + " vao vi tri nhan vien part-time");
         }
     }
+
 
     private static void defaultData() {
         AdminAccount adminAccount = new AdminAccount("admin", "admin");
