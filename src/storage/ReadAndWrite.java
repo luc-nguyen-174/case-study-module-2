@@ -17,7 +17,7 @@ public class ReadAndWrite<T> implements IReadAndWrite {
     }
 
     @Override
-    public boolean writeFile(Object file, String path) {
+    public void writeFile(Object file, String path) {
         File f = new File(path);
         OutputStream os = null;
         try {
@@ -46,7 +46,6 @@ public class ReadAndWrite<T> implements IReadAndWrite {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return true;
     }
 
     @Override
@@ -62,9 +61,8 @@ public class ReadAndWrite<T> implements IReadAndWrite {
             ois = new ObjectInputStream(is);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-        finally {
-            if (ois != null){
+        } finally {
+            if (ois != null) {
                 T writeObj = null;
                 try {
                     writeObj = (T) ois.readObject();
@@ -74,7 +72,7 @@ public class ReadAndWrite<T> implements IReadAndWrite {
                     throw new RuntimeException(e);
                 }
                 return writeObj;
-            }else{
+            } else {
                 return (T) new ArrayList<>();
             }
         }

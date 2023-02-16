@@ -8,20 +8,24 @@ import model.Employee;
 import model.FullTimeEmployee;
 import model.PartTimeEmployee;
 import storage.IReadAndWrite;
+import storage.IWriteLog;
 import storage.ReadAndWrite;
+import storage.WriteLogFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
 public class Client {
     public static Scanner scanner = new Scanner(System.in);
+    public static IWriteLog logWrite = WriteLogFile.getInstance();
     public static IReadAndWrite<List<Employee>> employeeIReadAndWrite = ReadAndWrite.getInstance();
     public static IReadAndWrite<List<AdminAccount>> adminAccountIReadAndWrite = ReadAndWrite.getInstance();
     public static List<Employee> employees = employeeIReadAndWrite.readFile("management.bin");
     public static Management management = new Management(employees);
-
     public static List<AdminAccount> accounts = adminAccountIReadAndWrite.readFile("admin.bin");
     public static AdminAccountManagement admin = new AdminAccountManagement(accounts);
+    public static LocalDateTime now = LocalDateTime.now();
 
     public static void main(String[] args) {
 //        management.display();
@@ -39,8 +43,14 @@ public class Client {
             System.out.print("Moi nhap lua chon: ");
             rollChoice = scanner.nextInt();
             switch (rollChoice) {
-                case 0 -> System.exit(0);
+                case 0 -> {
+                    String log = now.toString() +": "+ "Da thoat.";
+                    logWrite.WriteLogFile(log);
+                    System.exit(0);
+                }
                 case 1 -> {
+                    String log = now.toString() + ": Admin da truy cap vao he thong.";
+                    logWrite.WriteLogFile(log);
                     int adminChoice;
                     do {
                         System.out.print("""
@@ -59,8 +69,6 @@ public class Client {
                                 String username = scanner.nextLine();
                                 System.out.print("Mat khau: ");
                                 String password = scanner.nextLine();
-
-
                                 if (username.equals(accounts.get(0).getUsername()) &&
                                         password.equals(accounts.get(0).getPassword())) {
                                     System.out.println("Dang nhap thanh cong!");
@@ -85,9 +93,7 @@ public class Client {
                                             case 2 -> createNewEmployee();
                                             case 3 -> editEmployeeById();
                                             case 4 -> deleteById();
-                                            case 5 -> {
-                                                System.out.println("Tim nhan vien theo id");
-                                            }
+                                            case 5 -> findWithId();
                                             case 99 -> management.deleteAllStaff();
                                         }
                                     } while (success != 0);
@@ -117,6 +123,13 @@ public class Client {
                 default -> System.out.println("Ban da nhap sai, moi nhap lai.");
             }
         } while (rollChoice != 0);
+    }
+
+    private static void findWithId() {
+        System.out.print("Nhap vao ID can tim: ");
+        scanner.nextLine();
+        String id = scanner.nextLine();
+        management.findWithId(id);
     }
 
     private static void editEmployeeById() {
@@ -171,8 +184,9 @@ public class Client {
                 }
             }
         }
-        if (changeCount==0) {
+        if (changeCount == 0) {
             System.out.println("ID vua nhap khong ton tai.");
+            editEmployeeById();
         }
     }
 

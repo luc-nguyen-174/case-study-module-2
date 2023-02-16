@@ -42,6 +42,14 @@ public class Management implements Serializable {
             System.out.println(employee);
         }
     }
+    public void findWithId(String id){
+        for(Employee employee : employeeList){
+            if ( employee.getId().equals(id)){
+                System.out.println(employee);
+                break;
+            }
+        }
+    }
     public void fulltimeEmployeeDisplay(){
         for (Employee employee : employeeList){
             if (employee instanceof FullTimeEmployee){
@@ -60,4 +68,5 @@ public class Management implements Serializable {
         employeeList.clear();
         ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
     }
+
 }
