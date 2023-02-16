@@ -24,10 +24,7 @@ public class Client {
     public static AdminAccountManagement admin = new AdminAccountManagement(accounts);
 
     public static void main(String[] args) {
-        for(Employee employee : employees){
-            System.out.println(employee.getId());
-        }
-        management.display();
+//        management.display();
 //        defaultData();
         int rollChoice = 0;
         int loginFailCount = 0;
@@ -86,64 +83,8 @@ public class Client {
                                             case 0 -> System.exit(0);
                                             case 1 -> displayMenu();
                                             case 2 -> createNewEmployee();
-                                            case 3 -> {
-                                                System.out.print("Nhap id nhan vien:");
-
-                                                String findById = scanner.nextLine();
-                                                scanner.nextLine();
-                                                for (Employee employee : employees) {
-                                                    if (findById.equals(employee.getId())) {
-                                                        System.out.print("Nhap ten: ");
-                                                        String name = scanner.nextLine();
-                                                        employee.setName(name);
-
-                                                        System.out.print("Nhap ngay sinh:");
-                                                        String dateOfBirth = scanner.nextLine();
-                                                        employee.setDateOfBirth(dateOfBirth);
-
-                                                        System.out.print("Nhap vao so dien thoai: ");
-                                                        String phoneNumber = scanner.nextLine();
-                                                        employee.setPhoneNumbers(phoneNumber);
-
-                                                        System.out.print("Nhap dia chi: ");
-                                                        String address = scanner.nextLine();
-                                                        employee.setAddress(address);
-
-                                                        System.out.print("Nhap email: ");
-                                                        String email = scanner.nextLine();
-                                                        employee.setEmail(email);
-                                                        if (employee instanceof FullTimeEmployee) {
-                                                            System.out.print("Nhap luong:");
-                                                            int basicSalary = scanner.nextInt();
-                                                            ((FullTimeEmployee) employee).setBasicSalary(basicSalary);
-
-                                                            System.out.print("Nhap luong thuong: ");
-                                                            int bonus = scanner.nextInt();
-                                                            ((FullTimeEmployee) employee).setBonus(bonus);
-
-                                                            System.out.print("Nhap so tien bi phat: ");
-                                                            int fine = scanner.nextInt();
-                                                            ((FullTimeEmployee) employee).setFine(fine);
-                                                            System.out.println("Nhan vien " + employee.getId() + " da duoc thay doi thong tin thanh cong!");
-                                                        } else if (employee instanceof PartTimeEmployee) {
-                                                            System.out.print("Nhap so gio lam: ");
-                                                            double workTime = scanner.nextDouble();
-                                                            ((PartTimeEmployee) employee).setWorkTimes(workTime);
-
-                                                            System.out.println("Nhan vien " + employee.getId() + " da duoc thay doi thong tin thanh cong!");
-                                                        }
-                                                    } else {
-                                                        System.out.println("ID vua nhap khong ton tai!");
-                                                    }
-                                                }
-                                            }
-                                            case 4 -> {
-                                                System.out.println("Xoa nhan vien theo id");
-                                                System.out.print("Nhap id can xoa: ");
-                                                scanner.nextLine();
-                                                String id = scanner.nextLine();
-                                                management.removeEmployee(id);
-                                            }
+                                            case 3 -> editEmployeeById();
+                                            case 4 -> deleteById();
                                             case 5 -> {
                                                 System.out.println("Tim nhan vien theo id");
                                             }
@@ -176,6 +117,71 @@ public class Client {
                 default -> System.out.println("Ban da nhap sai, moi nhap lai.");
             }
         } while (rollChoice != 0);
+    }
+
+    private static void editEmployeeById() {
+        System.out.print("Nhap id nhan vien:");
+        scanner.nextLine();
+        String findById = scanner.nextLine();
+        int changeCount = 0;
+
+        for (Employee employee : employees) {
+            if (findById.equals(employee.getId())) {
+                changeCount++;
+                System.out.print("Nhap ten: ");
+                String name = scanner.nextLine();
+                employee.setName(name);
+
+                System.out.print("Nhap ngay sinh:");
+                String dateOfBirth = scanner.nextLine();
+                employee.setDateOfBirth(dateOfBirth);
+
+                System.out.print("Nhap vao so dien thoai: ");
+                String phoneNumber = scanner.nextLine();
+                employee.setPhoneNumbers(phoneNumber);
+
+                System.out.print("Nhap dia chi: ");
+                String address = scanner.nextLine();
+                employee.setAddress(address);
+
+                System.out.print("Nhap email: ");
+                String email = scanner.nextLine();
+                employee.setEmail(email);
+                if (employee instanceof FullTimeEmployee) {
+                    System.out.print("Nhap luong:");
+                    int basicSalary = scanner.nextInt();
+                    ((FullTimeEmployee) employee).setBasicSalary(basicSalary);
+
+                    System.out.print("Nhap luong thuong: ");
+                    int bonus = scanner.nextInt();
+                    ((FullTimeEmployee) employee).setBonus(bonus);
+
+                    System.out.print("Nhap so tien bi phat: ");
+                    int fine = scanner.nextInt();
+                    ((FullTimeEmployee) employee).setFine(fine);
+                    System.out.println("Nhan vien " + employee.getId() + " da duoc thay doi thong tin thanh cong!");
+                    return;
+                } else if (employee instanceof PartTimeEmployee) {
+                    System.out.print("Nhap so gio lam: ");
+                    double workTime = scanner.nextDouble();
+                    ((PartTimeEmployee) employee).setWorkTimes(workTime);
+
+                    System.out.println("Nhan vien co ID " + employee.getId() + " da duoc thay doi thong tin thanh cong!");
+                    return;
+                }
+            }
+        }
+        if (changeCount==0) {
+            System.out.println("ID vua nhap khong ton tai.");
+        }
+    }
+
+    private static void deleteById() {
+        System.out.println("Xoa nhan vien theo id");
+        System.out.print("Nhap id can xoa: ");
+        scanner.nextLine();
+        String id = scanner.nextLine();
+        management.removeEmployee(id);
     }
 
     private static void displayMenu() {
@@ -259,8 +265,8 @@ public class Client {
 
 
     private static void defaultData() {
-        AdminAccount adminAccount = new AdminAccount("admin", "admin");
-        admin.setAdmin(adminAccount);
+//        AdminAccount adminAccount = new AdminAccount("admin", "admin");
+//        admin.setAdmin(adminAccount);
         Employee test1 = new FullTimeEmployee("1", "test", "01/01/1991", "0xxxxxxxx", "test@gmail.com",
                 "email@gmail.com", 10000000, 1000000, 500000);
         Employee test2 = new PartTimeEmployee("2", "test2", "02/02/1991", "012345xx", "test2@gmail.com",
