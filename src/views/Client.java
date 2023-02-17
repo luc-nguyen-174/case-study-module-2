@@ -45,13 +45,11 @@ public class Client {
             rollChoice = scanner.nextInt();
             switch (rollChoice) {
                 case 0 -> {
-                    String log = now.toString() + ": " + "Da thoat.";
-                    logWrite.WriteLogFile(log);
+                    logWrite("Da thoat khoi chuong trinh.");
                     System.exit(0);
                 }
                 case 1 -> {
-                    String log = now.toString() + ": Admin da truy cap vao he thong.";
-                    logWrite.WriteLogFile(log);
+                    logWrite("Admin da truy cap.");
                     int adminChoice;
                     do {
                         System.out.print("""
@@ -73,6 +71,7 @@ public class Client {
                                 if (username.equals(accounts.get(0).getUsername()) &&
                                         password.equals(accounts.get(0).getPassword())) {
                                     System.out.println("Dang nhap thanh cong!");
+                                    logWrite("Dang nhap thanh cong!");
                                     int success = 0;
                                     do {
                                         System.out.print("""
@@ -89,7 +88,10 @@ public class Client {
                                         System.out.print("Moi nhap lua chon: ");
                                         success = scanner.nextInt();
                                         switch (success) {
-                                            case 0 -> System.exit(0);
+                                            case 0 -> {
+                                                System.exit(0);
+                                                logWrite("Admin da thoat khoi chuong trinh.");
+                                            }
                                             case 1 -> displayMenu();
                                             case 2 -> createNewEmployee();
                                             case 3 -> editEmployeeById();
@@ -99,10 +101,7 @@ public class Client {
                                         }
                                     } while (success != 0);
                                 } else {
-                                    loginFailCount++;
-                                    System.out.println(loginFailCount);
-                                    System.out.println("Dang nhap that bai, moi nhap lai!");
-                                    loginFailAlert(loginFailCount);
+                                    loginFailCount = loginFailAlert(loginFailCount);
                                 }
 
 
@@ -118,7 +117,15 @@ public class Client {
         } while (rollChoice != 0);
     }
 
-    private static void loginFailAlert(int loginFailCount) {
+    private static void logWrite(String message) {
+        String log = now.toString() + ": " + message;
+        logWrite.WriteLogFile(log);
+    }
+
+    private static int loginFailAlert(int loginFailCount) {
+        loginFailCount++;
+        System.out.println(loginFailCount);
+        System.out.println("Dang nhap that bai, moi nhap lai!");
         if (loginFailCount > 2) {
             System.out.println("Ban nhap sai qua nhieu, chuong trinh se tu dong thoat sau 5s");
             try {
@@ -128,6 +135,7 @@ public class Client {
             }
             System.exit(0);
         }
+        return loginFailCount;
     }
 
     private static void findWithId() {
@@ -204,6 +212,7 @@ public class Client {
     }
 
     private static void displayMenu() {
+        logWrite("Admin da truy cap vao hien thi");
         int displayChoice;
         do {
             System.out.println("""
@@ -221,33 +230,49 @@ public class Client {
                 case 1 -> {
                     if (management != null) {
                         management.display();
+                        logWrite("Admin da chon hien thi tat ca nhan vien.");
                     } else {
                         System.out.println("Khong co nhan vien");
+                        logWrite("Khong co nhan vien");
                     }
                 }
                 case 2 -> {
-                    if (management != null)
+                    if (management != null) {
                         management.fulltimeEmployeeDisplay();
-                    else System.out.println("Khong co nhan vien");
+                        logWrite("Admin da chon hien thi tat ca nhan vien chinh thuc.");
+                    } else {
+                        System.out.println("Khong co nhan vien");
+                        logWrite("Khong co nhan vien");
+                    }
                 }
                 case 3 -> {
                     if (management != null) {
                         management.parttimeEmployeeDisplay();
-                    } else System.out.println("Khong co nhan vien");
+                        logWrite("Admin da chon hien thi tat ca nhan vien ban thoi gian.");
+                    } else {
+                        System.out.println("Khong co nhan vien");
+                        logWrite("Khong co nhan vien");
+                    }
                 }
                 case 4 -> System.out.println("Tro ve memu truoc");
-                case 5 -> System.exit(0);
+                case 5 -> {
+                    logWrite("Da thoat khoi chuong trinh");
+                    System.exit(0);
+                }
             }
         } while (displayChoice != 0);
     }
 
     private static void createNewEmployee() {
+        logWrite("Admin da truy cap vao menu tao nhan vien");
         int role = 0;
         do {
             System.out.println("Nhan vien chinh thuc/nhan vien part-time (1/2): ");
             role = scanner.nextInt();
+
             if (role != 1 && role != 2) {
                 System.out.println("Gia tri khong hop le, moi nhap lai.");
+                logWrite("Nhap role nhan vien sai");
             }
         } while (role != 1 && role != 2);
         scanner.nextLine();
@@ -273,17 +298,19 @@ public class Client {
             Employee employeeInput = new FullTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
             management.addEmployee(employeeInput);
             System.out.println("Da them nhan vien " + name + " vao vi tri nhan vien chinh thuc.");
-
+            logWrite("Admin da them nhan vien " + name + " vao vi tri nhan vien chinh thuc.");
             createUserAccount(id, name, dateOfBirth);
             System.out.println("Da tao thanh cong tai khoan nhan vien.");
+            logWrite("Admin da them moi tai khoan nhan vien voi id: " + id);
         } else if (role == 2) {
             System.out.println("Nhap vao so gio lam ");
             double workedTime = scanner.nextDouble();
             Employee employeeInput = new PartTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workedTime);
             management.addEmployee(employeeInput);
             System.out.println("Dan them nhan vien " + name + " vao vi tri nhan vien part-time");
-
+            logWrite("Admin da them nhan vien " + name + " vao vi tri nhan vien part-time");
             createUserAccount(id, name, dateOfBirth);
+            logWrite("Admin da them moi tai khoan nhan vien voi id: " + id);
         }
     }
 
