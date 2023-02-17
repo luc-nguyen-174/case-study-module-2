@@ -1,6 +1,7 @@
 package controller;
 
 import model.UsersAccount;
+import storage.ReadAndWrite;
 
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class UsersAccountManagement {
     public void setUsersAccountList(List<UsersAccount> usersAccountList) {
         this.usersAccountList = usersAccountList;
     }
-    public static String employeeAccountGeneration(String name, String dateOfBirth) {
+
+    public String employeeAccountGeneration(String name, String dateOfBirth) {
         name = name.toLowerCase().replaceAll("\\s","");
         dateOfBirth = dateOfBirth.replaceAll("/", "");
         String[] arr = {"á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",
@@ -37,5 +39,9 @@ public class UsersAccountManagement {
             name = name.replaceAll(arr[i], arrReplace[i]);
         }
         return name + dateOfBirth;
+    }
+    public void setUserAccount(UsersAccount account) {
+        usersAccountList.add(account);
+        ReadAndWrite.getInstance().writeFile(usersAccountList,"users.bin");
     }
 }

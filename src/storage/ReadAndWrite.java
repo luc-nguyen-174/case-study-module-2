@@ -23,7 +23,8 @@ public class ReadAndWrite<T> implements IReadAndWrite {
         try {
             os = new FileOutputStream(f);
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println("File không tồn tại, mời khởi tạo thông tin để khởi tạo file" +
+                    ", sau đó khởi động lại chương trình.");
         }
         ObjectOutputStream oos = null;
         try {
@@ -54,7 +55,8 @@ public class ReadAndWrite<T> implements IReadAndWrite {
         try {
             is = new FileInputStream(path);
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println("File không tồn tại, mời khởi tạo thông tin để khởi tạo file" +
+                    ", sau đó khởi động lại chương trình.");
         }
         ObjectInputStream ois = null;
         try {

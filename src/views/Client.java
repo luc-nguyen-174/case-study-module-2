@@ -3,10 +3,8 @@ package views;
 import controller.Management;
 
 import controller.AdminAccountManagement;
-import model.AdminAccount;
-import model.Employee;
-import model.FullTimeEmployee;
-import model.PartTimeEmployee;
+import controller.UsersAccountManagement;
+import model.*;
 import storage.IReadAndWrite;
 import storage.IWriteLog;
 import storage.ReadAndWrite;
@@ -20,11 +18,14 @@ public class Client {
     public static Scanner scanner = new Scanner(System.in);
     public static IWriteLog logWrite = WriteLogFile.getInstance();
     public static IReadAndWrite<List<Employee>> employeeIReadAndWrite = ReadAndWrite.getInstance();
-    public static IReadAndWrite<List<AdminAccount>> adminAccountIReadAndWrite = ReadAndWrite.getInstance();
     public static List<Employee> employees = employeeIReadAndWrite.readFile("management.bin");
-    public static Management management = new Management(employees);
+    public static IReadAndWrite<List<AdminAccount>> adminAccountIReadAndWrite = ReadAndWrite.getInstance();
     public static List<AdminAccount> accounts = adminAccountIReadAndWrite.readFile("admin.bin");
+    public static IReadAndWrite<List<UsersAccount>> usersIReadAndWrite = ReadAndWrite.getInstance();
+    public static List<UsersAccount> users = usersIReadAndWrite.readFile("users.bin");
+    public static Management management = new Management(employees);
     public static AdminAccountManagement admin = new AdminAccountManagement(accounts);
+    public static UsersAccountManagement user = new UsersAccountManagement(users);
     public static LocalDateTime now = LocalDateTime.now();
 
     public static void main(String[] args) {
@@ -44,7 +45,7 @@ public class Client {
             rollChoice = scanner.nextInt();
             switch (rollChoice) {
                 case 0 -> {
-                    String log = now.toString() +": "+ "Da thoat.";
+                    String log = now.toString() + ": " + "Da thoat.";
                     logWrite.WriteLogFile(log);
                     System.exit(0);
                 }
@@ -101,15 +102,7 @@ public class Client {
                                     loginFailCount++;
                                     System.out.println(loginFailCount);
                                     System.out.println("Dang nhap that bai, moi nhap lai!");
-                                    if (loginFailCount > 2) {
-                                        System.out.println("Ban nhap sai qua nhieu, chuong trinh se tu dong thoat sau 5s");
-                                        try {
-                                            Thread.sleep(5000);
-                                        } catch (InterruptedException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                        System.exit(0);
-                                    }
+                                    loginFailAlert(loginFailCount);
                                 }
 
 
@@ -123,6 +116,18 @@ public class Client {
                 default -> System.out.println("Ban da nhap sai, moi nhap lai.");
             }
         } while (rollChoice != 0);
+    }
+
+    private static void loginFailAlert(int loginFailCount) {
+        if (loginFailCount > 2) {
+            System.out.println("Ban nhap sai qua nhieu, chuong trinh se tu dong thoat sau 5s");
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.exit(0);
+        }
     }
 
     private static void findWithId() {
@@ -268,19 +273,31 @@ public class Client {
             Employee employeeInput = new FullTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
             management.addEmployee(employeeInput);
             System.out.println("Da them nhan vien " + name + " vao vi tri nhan vien chinh thuc.");
+
+            createUserAccount(id, name, dateOfBirth);
+            System.out.println("Da tao thanh cong tai khoan nhan vien.");
         } else if (role == 2) {
             System.out.println("Nhap vao so gio lam ");
             double workedTime = scanner.nextDouble();
             Employee employeeInput = new PartTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workedTime);
             management.addEmployee(employeeInput);
             System.out.println("Dan them nhan vien " + name + " vao vi tri nhan vien part-time");
+
+            createUserAccount(id, name, dateOfBirth);
         }
     }
 
+    private static void createUserAccount(String id, String name, String dateOfBirth) {
+        String username = user.employeeAccountGeneration(name, dateOfBirth);
+        String password = dateOfBirth.replaceAll("/", "");
+        UsersAccount userAccount = new UsersAccount(id, username, password);
+        user.setUserAccount(userAccount);
+        System.out.println("Da tao thanh cong tai khoan cho nhan vien co ID '" + id + "'");
+    }
 
     private static void defaultData() {
-//        AdminAccount adminAccount = new AdminAccount("admin", "admin");
-//        admin.setAdmin(adminAccount);
+        AdminAccount adminAccount = new AdminAccount("admin", "admin");
+        admin.setAdmin(adminAccount);
         Employee test1 = new FullTimeEmployee("1", "test", "01/01/1991", "0xxxxxxxx", "test@gmail.com",
                 "email@gmail.com", 10000000, 1000000, 500000);
         Employee test2 = new PartTimeEmployee("2", "test2", "02/02/1991", "012345xx", "test2@gmail.com",
