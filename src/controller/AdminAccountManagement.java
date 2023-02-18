@@ -23,6 +23,6 @@ public class AdminAccountManagement{
     }
     public void setAdmin(AdminAccount accounts) {
         adminAccounts.add(accounts);
-        ReadAndWrite.getInstance().writeFile(adminAccounts,"admin.bin");
+        ReadAndWrite.getInstance().writeFile(adminAccounts,"src/database/admin.bin");
     }
 }

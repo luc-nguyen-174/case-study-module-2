@@ -18,11 +18,11 @@ public class Client {
     public static Scanner scanner = new Scanner(System.in);
     public static IWriteLog logWrite = WriteLogFile.getInstance();
     public static IReadAndWrite<List<Employee>> employeeIReadAndWrite = ReadAndWrite.getInstance();
-    public static List<Employee> employees = employeeIReadAndWrite.readFile("management.bin");
+    public static List<Employee> employees = employeeIReadAndWrite.readFile("src/database/management.bin");
     public static IReadAndWrite<List<AdminAccount>> adminAccountIReadAndWrite = ReadAndWrite.getInstance();
-    public static List<AdminAccount> accounts = adminAccountIReadAndWrite.readFile("admin.bin");
+    public static List<AdminAccount> accounts = adminAccountIReadAndWrite.readFile("src/database/admin.bin");
     public static IReadAndWrite<List<UsersAccount>> usersIReadAndWrite = ReadAndWrite.getInstance();
-    public static List<UsersAccount> users = usersIReadAndWrite.readFile("users.bin");
+    public static List<UsersAccount> users = usersIReadAndWrite.readFile("src/database/users.bin");
     public static Management management = new Management(employees);
     public static AdminAccountManagement admin = new AdminAccountManagement(accounts);
     public static UsersAccountManagement user = new UsersAccountManagement(users);
@@ -165,7 +165,7 @@ public class Client {
                 }
             } while (rollChoice != 0);
         } catch (Exception e) {
-            System.err.println("Nhập lỗi, mời khởi động lại chương trình");
+            System.err.println("Nhập lỗi, mời khởi động lại chương xóa");
 
         }
     }

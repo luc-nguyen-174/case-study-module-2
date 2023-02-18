@@ -42,6 +42,6 @@ public class UsersAccountManagement {
     }
     public void setUserAccount(UsersAccount account) {
         usersAccountList.add(account);
-        ReadAndWrite.getInstance().writeFile(usersAccountList,"users.bin");
+        ReadAndWrite.getInstance().writeFile(usersAccountList,"src/database/users.bin");
     }
 }

@@ -24,18 +24,18 @@ public class Management implements Serializable {
     }
     public void addEmployee(Employee nhanVien) {
         employeeList.add(nhanVien);
-        ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
+        ReadAndWrite.getInstance().writeFile(employeeList,"src/database/management.bin");
     }
     public void removeEmployee(String id){
         for ( int i = 0; i < employeeList.size(); i++ )
             if( employeeList.get(i).getId().equals(id)){
                 employeeList.remove(i);
-                System.out.println("Nhan vien da duoc xoa");
+                System.out.println("Nhân viên đã xóa thành công");
                 break;
             }else{
-                System.out.println("Khong co thanh vien nao can xoa.");
+                System.out.println("Không có thành viên nào để xóa.");
             }
-        ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
+        ReadAndWrite.getInstance().writeFile(employeeList,"src/database/management.bin");
     }
     public void display(){
         for(Employee employee : employeeList){
@@ -66,7 +66,7 @@ public class Management implements Serializable {
     }
     public void deleteAllStaff(){
         employeeList.clear();
-        ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
+        ReadAndWrite.getInstance().writeFile(employeeList,"src/database/management.bin");
     }
     public void inputValidateAlert(){
         System.out.println("Bạn đã nhập sai, mời nhập lại!!");

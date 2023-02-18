@@ -21,15 +21,23 @@ public class WriteLogFile implements IWriteLog {
     public void WriteLogFile(Object log) {
         FileWriter writer = null;
         try {
-            writer = new FileWriter("log.txt", true);
+            writer = new FileWriter("src/database/log.txt", true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         BufferedWriter buff = new BufferedWriter(writer);
         try {
             buff.write( log+"\n");
-            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
             buff.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
