@@ -68,5 +68,7 @@ public class Management implements Serializable {
         employeeList.clear();
         ReadAndWrite.getInstance().writeFile(employeeList,"management.bin");
     }
-
+    public void inputValidateAlert(){
+        System.out.println("Bạn đã nhập sai, mời nhập lại!!");
+    }
 }

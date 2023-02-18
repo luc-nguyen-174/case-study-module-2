@@ -28,16 +28,8 @@ public class WriteLogFile implements IWriteLog {
         BufferedWriter buff = new BufferedWriter(writer);
         try {
             buff.write( log+"\n");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            buff.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
             writer.close();
+            buff.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
