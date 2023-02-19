@@ -192,3 +192,57 @@
 2023-02-19T20:07:32.641807: Admin đã đăng nhập thành công vào hệ thống!
 2023-02-19T20:07:32.641807: Admin đã truy cập vào menu hiển thị.
 2023-02-19T20:07:32.641807: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T22:59:05.384055: Admin đã truy cập.
+2023-02-19T22:59:05.384055: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T22:59:05.384055: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T22:59:05.384055: Nhập vai trò sai.
+2023-02-19T22:59:05.384055: Nhập vai trò sai.
+2023-02-19T22:59:05.384055: Admin đã thêm mới nhân viên part-time.
+2023-02-19T22:59:05.384055: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '3'
+2023-02-19T22:59:05.384055: Admin đã truy cập vào menu hiển thị.
+2023-02-19T22:59:05.384055: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-19T23:04:53.289842: Admin đã truy cập.
+2023-02-19T23:04:53.289842: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:04:53.289842: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:12:53.032055: Admin đã truy cập.
+2023-02-19T23:12:53.032055: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:12:53.032055: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:12:53.032055: Nhập vai trò sai.
+2023-02-19T23:12:53.032055: Nhập vai trò sai.
+2023-02-19T23:12:53.032055: Nhập vai trò sai.
+2023-02-19T23:17:32.800295: Admin đã truy cập.
+2023-02-19T23:17:32.800295: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:17:32.800295: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:17:32.800295: Nhập vai trò sai.
+2023-02-19T23:17:32.800295: Nhập vai trò sai.
+2023-02-19T23:17:32.800295: Nhập vai trò sai.
+2023-02-19T23:17:32.800295: Nhập vai trò sai.
+2023-02-19T23:18:20.990091: Admin đã truy cập.
+2023-02-19T23:18:20.990091: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:18:20.990091: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:19:47.094725: Admin đã truy cập.
+2023-02-19T23:19:47.094725: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:19:47.094725: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:22:01.850844: Admin đã truy cập.
+2023-02-19T23:22:01.850844: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:22:01.850844: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:25:24.423380: Admin đã truy cập.
+2023-02-19T23:25:24.423380: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:25:24.423380: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:27:39.056250: Admin đã truy cập.
+2023-02-19T23:27:39.056250: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:27:39.056250: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:33:42.509023: Admin đã truy cập.
+2023-02-19T23:33:42.509023: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:33:42.509023: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:35:21.997676: Admin đã truy cập.
+2023-02-19T23:35:21.997676: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:35:21.997676: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:38:56.710442: Admin đã truy cập.
+2023-02-19T23:38:56.710442: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:38:56.710442: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:42:35.095393: Admin đã truy cập.
+2023-02-19T23:42:35.095393: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T23:42:35.095393: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T23:42:35.095393: Admin đã thêm mới nhân viên part-time.
+2023-02-19T23:42:35.095393: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '4'

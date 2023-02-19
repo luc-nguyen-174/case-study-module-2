@@ -14,6 +14,8 @@ import storage.WriteLogFile;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Client {
     public static Scanner scanner = new Scanner(System.in);
@@ -28,6 +30,9 @@ public class Client {
     public static AdminAccountManagement admin = new AdminAccountManagement(accounts);
     public static UsersAccountManagement user = new UsersAccountManagement(users);
     public static LocalDateTime now = LocalDateTime.now();
+    private static final String DATEOFBIRTH_VALIDATION = "(^(((0[1-9]|1[0-9]|2[0-8])[\\/](0[1-9]|1[012]))|((29|30|31)[\\/](0[13578]|1[02]))|((29|30)[\\/](0[4,6,9]|11)))[\\/](19|[2-9][0-9])\\d\\d$)|(^29[\\/]02[\\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)";
+    private static final String PHONE_NUMBER = "(((\\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\\b";
+    private static final String EMAIL_VALIDATION = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 
     public static void main(String[] args) {
 
@@ -140,7 +145,6 @@ public class Client {
                                         }
                                     }
                                     loginFail = loginFailAlert(loginSuccess, loginFail);
-
                                 }
                                 case 2 -> {
                                     menu();
@@ -306,6 +310,11 @@ public class Client {
                 String id = findById;
                 management.removeEmployee(id);          //remove old employee
                 user.removeUserAccount(id);             // remove old user account
+
+                System.out.println("Lựa chọn vai trò:");
+                System.out.println("Nhân viên chính thức/part-time (1/2):");
+                int role = getRole();
+
                 System.out.print("Nhập tên mới: ");
                 String name = scanner.nextLine();
 
@@ -325,7 +334,7 @@ public class Client {
                 System.out.print("Nhập email mới: ");
                 String email = scanner.nextLine();
 
-                if (employee instanceof FullTimeEmployee) {
+                if (role == 1) {
                     System.out.print("Nhập lương cơ bản mới:");
                     int basicSalary = scanner.nextInt();
 
@@ -342,7 +351,7 @@ public class Client {
                     createUserAccount(id, name, dateOfBirth); //create new user account
                     System.out.println("Nhân viên có ID là '" + employee.getId() + "' đã được thay đổi thông tin thành công!");
                     return;
-                } else if (employee instanceof PartTimeEmployee) {
+                } else if (role == 2) {
                     System.out.print("Nhập số giờ làm: ");
                     double workTime = scanner.nextDouble();
 
@@ -373,45 +382,28 @@ public class Client {
 
     private static void createNewEmployee() {
         logWrite("Admin đã lựa chọn menu thêm mới nhân viên");
-        int role = 0;
+        System.out.println("Lựa chọn vai trò:");
+        System.out.println("Nhân viên chính thức/part-time (1/2):");
+        int role = getRole();
 
-        do {
-            System.out.println("Lựa chọn vai trò:");
-            System.out.println("Nhân viên chính thức/part-time (1/2):");
-            role = scanner.nextInt();
-
-            if (role != 1 && role != 2) {
-                System.out.println("Giá trị không hợp lệ, mời nhập lại.");
-                logWrite("Nhập vai trò sai.");
-            }
-        } while (role != 1 && role != 2);
         scanner.nextLine();
-        String id = "";
-        int checkIdValid;
-        do {
-            checkIdValid = 0;
-            System.out.println("Nhập mã nhân viên: ");
-            id = scanner.nextLine();
-            for (Employee employee : employees) {
-                if (employee.getId().equals(id)) {
-                    checkIdValid++;
-                }
-            }
-            if (checkIdValid != 0) {
-                System.out.println("ID này đã tồn tại, mời nhập lại ID khác.");
+        System.out.println("Nhập mã nhân viên: ");
+        String id = getId();
 
-            }
-        } while (checkIdValid != 0);
         System.out.println("Nhập tên nhân viên: ");
         String name = scanner.nextLine();
+
         System.out.println("Ngày sinh (dd/mm/yyyy): ");
-        String dateOfBirth = scanner.nextLine();
+        String dateOfBirth = checkDateValidate();
+
         System.out.println("Nhập số điện thoại: ");
-        String phoneNumber = scanner.nextLine();
+        String phoneNumber = checkPhoneValidate();
+
         System.out.println("Nhập địa chỉ: ");
         String address = scanner.nextLine();
+
         System.out.println("Nhập email: ");
-        String email = scanner.nextLine();
+        String email = checkEmailValidate();
         if (role == 1) {
             System.out.print("Nhập lương cơ bản: ");
             int basicSalary = scanner.nextInt();
@@ -429,6 +421,38 @@ public class Client {
             createUserAccount(id, name, dateOfBirth);
 
         }
+    }
+
+    private static String getId() {
+        String id = "";
+        int checkIdValid;
+        do {
+            checkIdValid = 0;
+            id = scanner.nextLine();
+            for (Employee employee : employees) {
+                if (employee.getId().equals(id)) {
+                    checkIdValid++;
+                }
+            }
+            if (checkIdValid != 0) {
+                System.out.println("ID này đã tồn tại, mời nhập lại ID khác.");
+
+            }
+        } while (checkIdValid != 0);
+        return id;
+    }
+
+    private static int getRole() {
+        int role;
+        do {
+            role = scanner.nextInt();
+
+            if (role != 1 && role != 2) {
+                System.out.println("Giá trị không hợp lệ, mời nhập lại:");
+                logWrite("Nhập vai trò sai.");
+            }
+        } while (role != 1 && role != 2);
+        return role;
     }
 
     private static void createNewParttimeEmployee(String id, String name, String dateOfBirth, String phoneNumber, String address, String email, double workedTime) {
@@ -511,6 +535,42 @@ public class Client {
                 default -> management.inputValidateAlert();
             }
         } while (displayChoice != 0);
+    }
+
+    private static String checkDateValidate() {
+        String dateOfBirth = scanner.nextLine();
+        Pattern pattern = Pattern.compile(DATEOFBIRTH_VALIDATION);
+        Matcher matcher = pattern.matcher(dateOfBirth);
+        if (matcher.find()) {
+            return dateOfBirth;
+        } else {
+            System.out.println("Ngày sinh không hợp lệ, mời nhập lại (dd/mm/yyyy): ");
+            return checkDateValidate();
+        }
+    }
+
+    private static String checkPhoneValidate() {
+        String phoneNumber = scanner.nextLine();
+        Pattern pattern = Pattern.compile(PHONE_NUMBER);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        if (matcher.find()) {
+            return phoneNumber;
+        } else {
+            System.out.println("Số điện thoại không hợp lệ, mời nhập lại: ");
+            return checkPhoneValidate();
+        }
+    }
+
+    private static String checkEmailValidate() {
+        String email = scanner.nextLine();
+        Pattern pattern = Pattern.compile(EMAIL_VALIDATION);
+        Matcher matcher = pattern.matcher(email);
+        if (matcher.find()) {
+            return email;
+        } else {
+            System.out.println("Email không hợp lệ, mời nhập lại (xxx@xxx.com): ");
+            return checkEmailValidate();
+        }
     }
 
     private static void logWrite(String message) {
