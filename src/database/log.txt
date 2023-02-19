@@ -173,3 +173,22 @@
 2023-02-19T14:27:20.702752: Nhân viên đã truy cập vào hệ thống.
 2023-02-19T14:27:43.910301: Nhân viên đã truy cập vào hệ thống.
 2023-02-19T14:28:58.402934: Nhân viên đã truy cập vào hệ thống.
+2023-02-19T14:48:39.638021: Admin đã truy cập.
+2023-02-19T20:01:51.459913: Admin đã truy cập.
+2023-02-19T20:02:05.863953: Nhân viên đã truy cập vào hệ thống.
+2023-02-19T20:04:45.611126: Admin đã truy cập.
+2023-02-19T20:04:45.611126: Nhân viên đã truy cập vào hệ thống.
+2023-02-19T20:05:11.165433: Admin đã truy cập.
+2023-02-19T20:05:11.165433: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T20:06:08.008560: Admin đã truy cập.
+2023-02-19T20:06:08.008560: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T20:07:32.641807: Nhân viên đã truy cập vào hệ thống.
+2023-02-19T20:07:32.641807: Admin đã truy cập.
+2023-02-19T20:07:32.641807: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T20:07:32.641807: Admin đã truy cập vào menu hiển thị.
+2023-02-19T20:07:32.641807: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-19T20:07:32.641807: Admin đã lựa chọn hiển thị toàn bộ nhân viên chính thức.
+2023-02-19T20:07:32.641807: Admin đã lựa chọn hiển thị toàn bộ nhân viên bán thời gian.
+2023-02-19T20:07:32.641807: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T20:07:32.641807: Admin đã truy cập vào menu hiển thị.
+2023-02-19T20:07:32.641807: Admin đã đăng nhập thành công vào hệ thống!

@@ -31,10 +31,13 @@ public class Client {
 
     public static void main(String[] args) {
 
-        management.display();
 //        defaultData();
-        System.out.println(user.getUsersAccountList());
-//        System.out.println(employees.size());
+//        management.display();
+//        System.out.println(user.getUsersAccountList());
+        menu();
+    }
+
+    private static void menu() {
         try {
             int roleChoice;
             int loginFail = 0;
@@ -63,7 +66,8 @@ public class Client {
                             System.out.print("""
                                     -------------------------------------
                                     |   1. Đăng nhập                    |
-                                    |   2. Thoát                        |
+                                    |   2. Trở về                       |
+                                    |   3. Thoát                        |
                                     -------------------------------------
                                     """);
                             System.out.print("Mời nhập lựa chọn: ");
@@ -89,7 +93,10 @@ public class Client {
                                     loginFail = loginFailAlert(loginSuccess, loginFail);
 
                                 }
-                                case 2 -> System.exit(adminChoice);
+                                case 2 -> {
+                                    menu();
+                                }
+                                case 3 -> System.exit(adminChoice);
                                 default -> management.inputValidateAlert();
                             }
                         } while (adminChoice != 0);
@@ -111,8 +118,7 @@ public class Client {
                             usersChoice = scanner.nextInt();
 
                             switch (usersChoice) {
-                                case 1 -> //chua xong
-                                {
+                                case 1 -> {
                                     System.out.print("Tài khoản: ");
                                     scanner.nextLine();
                                     String username = scanner.nextLine();
@@ -130,37 +136,14 @@ public class Client {
                                         }
                                         if (loginSuccess) {
                                             System.out.println("Đăng nhập thành công.");
-                                            delaySetting(1000);
-                                            int userMenu;
-                                            do {
-                                                System.out.println("""
-                                                        ---------------------------------
-                                                        |   1. Hiển thị lương tháng này |
-                                                        |   2. Đổi mật khẩu             |
-                                                        ---------------------------------
-                                                        """);
-                                                System.out.print("Mời nhập lựa chọn: ");
-                                                userMenu = scanner.nextInt();
-                                                switch (userMenu) {
-                                                    case 1 -> //display salary
-                                                    {
-                                                        salaryDisplay(id);
-                                                    }
-                                                    case 2 -> {
-                                                        changePassword(usersAccount);
-                                                    }
-                                                    default -> {
-                                                        management.inputValidateAlert();
-                                                    }
-                                                }
-                                            } while (true);
+                                            userMenu(id, usersAccount);
                                         }
                                     }
                                     loginFail = loginFailAlert(loginSuccess, loginFail);
 
                                 }
                                 case 2 -> {
-                                    System.out.println("2");
+                                    menu();
                                 }
                                 case 3 -> System.exit(0);
                                 default -> management.inputValidateAlert();
@@ -169,10 +152,82 @@ public class Client {
                     }
                     default -> management.inputValidateAlert();
                 }
-            } while (roleChoice != 0);
+            } while (true);
         } catch (Exception e) {
             System.err.println("Nhập lỗi, mời khởi động lại chương trình.");
         }
+    }
+
+    private static void adminChoiceMenu() {
+        logWrite("Admin đã đăng nhập thành công vào hệ thống!");
+        delaySetting(1000);
+        int success = 0;
+        do {
+            System.out.print("""
+                    -------------------------------------
+                    |   1. Hiển thị danh sách nhân viên |
+                    |   2. Thêm nhân viên               |
+                    |   3. Sửa nhân viên theo ID        |
+                    |   4. Xóa nhân viên theo ID        |
+                    |   5. Tìm nhân viên theo ID        |
+                    |   9. Đăng xuất                    |
+                    |   99. Clear toàn bộ nhân viên     |
+                    |   0. Thoát                        |
+                    -------------------------------------
+                                    """);
+            System.out.print("Mời nhập lựa chọn: ");
+            success = scanner.nextInt();
+            switch (success) {
+                case 0 -> {
+                    System.exit(0);
+                    logWrite("Admin đã thoát khỏi chương trình.");
+                }
+                case 1 -> displayMenu();
+                case 2 -> createNewEmployee();
+                case 3 -> {
+                    scanner.nextLine();
+                    editEmployeeById();
+                }
+                case 4 -> deleteById();
+                case 5 -> findWithId();
+                case 9 -> menu();
+                case 99 -> {
+                    management.deleteAllStaff();
+                    user.deleteAllAccount();
+                }
+                default -> management.inputValidateAlert();
+            }
+        } while (true);
+    }
+
+    private static void userMenu(String id, UsersAccount usersAccount) {
+        delaySetting(1000);
+        int userMenu;
+        do {
+            System.out.println("""
+                    ---------------------------------
+                    |   1. Hiển thị lương tháng này |
+                    |   2. Đổi mật khẩu             |
+                    |   3. Đăng xuất                |
+                    ---------------------------------
+                    """);
+            System.out.print("Mời nhập lựa chọn: ");
+            userMenu = scanner.nextInt();
+            switch (userMenu) {
+                case 1 -> //display salary
+                {
+                    salaryDisplay(id);
+                }
+                case 2 -> //change password
+                {
+                    changePassword(usersAccount);
+                }
+                case 3 -> menu();
+                default -> {
+                    management.inputValidateAlert();
+                }
+            }
+        } while (true);
     }
 
     private static void changePassword(@NotNull UsersAccount usersAccount) {
@@ -215,8 +270,10 @@ public class Client {
             System.out.println("Sai tài khoản hoặc mật khẩu.");
             System.out.println("Bạn đã nhập sai " + loginFail + "/3");
             if (loginFail == 3) {
-                System.out.println("Bạn đã nhập sai quá nhiều, chương trình sẽ tự động thoát sau 3s.");
-                Thread.sleep(3000);
+                for (int i = 3; i > 0; i--) {
+                    System.out.println("Bạn đã nhập sai quá nhiều, chương trình sẽ tự động thoát sau " + i + "s.");
+                    Thread.sleep(1000);
+                }
                 System.exit(0);
             }
         }
@@ -229,48 +286,6 @@ public class Client {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static void adminChoiceMenu() {
-        logWrite("Admin đã đăng nhập thành công vào hệ thống!");
-        delaySetting(1000);
-        int success = 0;
-        do {
-            System.out.print("""
-                    -------------------------------------
-                    |   1. Hiển thị danh sách nhân viên |
-                    |   2. Thêm nhân viên               |
-                    |   3. Sửa nhân viên theo ID        |
-                    |   4. Xóa nhân viên theo ID        |
-                    |   5. Tìm nhân viên theo ID        |
-                    |   9. Trở về menu trước            |
-                    |   99. Clear toàn bộ nhân viên     |
-                    |   0. Thoát                        |
-                    -------------------------------------
-                                    """);
-            System.out.print("Mời nhập lựa chọn: ");
-            success = scanner.nextInt();
-            switch (success) {
-                case 0 -> {
-                    System.exit(0);
-                    logWrite("Admin đã thoát khỏi chương trình.");
-                }
-                case 1 -> displayMenu();
-                case 2 -> createNewEmployee();
-                case 3 -> {
-                    scanner.nextLine();
-                    editEmployeeById();
-                }
-                case 4 -> deleteById();
-                case 5 -> findWithId();
-                case 9 -> System.out.println(1);//chua hoan thanh
-                case 99 -> {
-                    management.deleteAllStaff();
-                    user.deleteAllAccount();
-                }
-                default -> management.inputValidateAlert();
-            }
-        } while (true);
     }
 
     private static void findWithId() {
