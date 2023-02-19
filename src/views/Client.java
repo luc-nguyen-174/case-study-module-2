@@ -36,7 +36,8 @@ public class Client {
 //        System.out.println(employees.size());
         try {
             int roleChoice;
-            int loginFailCount;
+            int loginFail = 0;
+            boolean loginSuccess = false;
             do {
                 System.out.print("""
                         -------------------------------------
@@ -57,7 +58,6 @@ public class Client {
                     {
                         logWrite("Admin đã truy cập.");
                         int adminChoice;
-                        loginFailCount = 0;
                         do {
                             System.out.print("""
                                     -------------------------------------
@@ -75,12 +75,24 @@ public class Client {
                                     String username = scanner.nextLine();
                                     System.out.print("Mật khẩu: ");
                                     String password = scanner.nextLine();
-                                    if (username.equals(accounts.get(0).getUsername()) &&
-                                            password.equals(accounts.get(0).getPassword())) {
-                                        System.out.println("Đăng nhập thành công!");
-                                        adminChoiceMenu();
-                                    } else {
-                                        loginFailCount = loginFailAlert(loginFailCount);
+                                    for (AdminAccount account : accounts) {
+                                        if (username.equals(account.getUsername()) &&
+                                                password.equals(account.getPassword())) {
+                                            loginSuccess = true;
+                                        }
+                                        if (loginSuccess) {
+                                            adminChoiceMenu();
+                                        } else {
+                                            loginFail++;
+                                            System.out.println("Sai tài khoản hoặc mật khẩu.");
+                                            System.out.println("Bạn đã nhập sai " + loginFail + "/3");
+                                            break;
+                                        }
+                                    }
+                                    if (loginFail == 3) {
+                                        System.out.println("Bạn đã nhập sai quá nhiều, chương trình sẽ tự động thoát sau 3s.");
+                                        Thread.sleep(3000);
+                                        System.exit(0);
                                     }
                                 }
                                 case 2 -> System.exit(adminChoice);
@@ -90,40 +102,40 @@ public class Client {
                     }
                     case 2 ->//Menu users
                     {
-                        logWrite("Nhan vien da truy cap vao he thong.");
+                        logWrite("Nhân viên đã truy cập vào hệ thống.");
                         int usersChoice;
-                        loginFailCount = 0;
+
                         do {
                             System.out.println("""
                                     -------------------------------------
                                     |   1. Đăng nhập                    |
-                                    |   2. Tro ve                       |
+                                    |   2. Trở về                       |
                                     |   3. Thoát                        |
                                     -------------------------------------
                                     """);
-                            System.out.print("Moi nhap lua chon: ");
+                            System.out.print("Mời nhập lựa chọn: ");
                             usersChoice = scanner.nextInt();
-                            int loginSuccess;
+
                             switch (usersChoice) {
                                 case 1 -> //chua xong
                                 {
-                                    loginSuccess = 0;
                                     System.out.print("Tài khoản: ");
                                     scanner.nextLine();
                                     String username = scanner.nextLine();
                                     System.out.print("Mật khẩu: ");
                                     String password = scanner.nextLine();
-                                    int userIndex = 0;
+                                    int userIndex;
                                     String id = "";
+
                                     for (UsersAccount usersAccount : users) {
                                         if (username.equals(usersAccount.getUsername()) &&
                                                 password.equals(usersAccount.getPassword())) {
                                             userIndex = users.indexOf(usersAccount);
                                             id = users.get(userIndex).getId();
-                                            loginSuccess++;
+                                            loginSuccess = true;
                                         }
-                                        if (loginSuccess == 1) {
-                                            System.out.println("Dang nhap thanh cong.");
+                                        if (loginSuccess) {
+                                            System.out.println("Đăng nhập thành công.");
                                             delaySetting(1000);
                                             int userMenu;
                                             do {
@@ -168,7 +180,6 @@ public class Client {
                                                             if (newPassword.equals(confirmPassword)) {
                                                                 usersAccount.setPassword(newPassword);
                                                                 System.out.println("Mat khau da duoc thay doi.");
-                                                                break;
                                                             }
                                                         }
                                                     }
@@ -177,7 +188,16 @@ public class Client {
                                                     }
                                                 }
                                             } while (true);
+                                        } else {
+                                            loginFail++;
+                                            System.out.println("Sai tài khoản hoặc mật khẩu.");
+                                            break;
                                         }
+                                    }
+                                    if (loginFail == 3) {
+                                        System.out.println("Bạn đã nhập sai quá nhiều, chương trình sẽ tự động thoát sau 3s.");
+                                        Thread.sleep(3000);
+                                        System.exit(0);
                                     }
                                 }
                                 case 2 -> {
@@ -244,18 +264,6 @@ public class Client {
                 default -> management.inputValidateAlert();
             }
         } while (true);
-    }
-
-    private static int loginFailAlert(int loginFailCount) {
-        loginFailCount++;
-        System.out.println(loginFailCount);
-        System.out.println("Đăng nhập thất bại, hãy kiểm tra lại tài khoản hoặc mật khẩu!");
-        if (loginFailCount > 2) {
-            System.out.println("Bạn đã nhập sai quá nhiều, chương trình sẽ tự động thoát sau 5s.");
-            delaySetting(5000);
-            System.exit(0);
-        }
-        return loginFailCount;
     }
 
     private static void findWithId() {
