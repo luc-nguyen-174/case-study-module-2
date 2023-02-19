@@ -58,4 +58,8 @@ public class UsersAccountManagement {
         usersAccountList.clear();
         ReadAndWrite.getInstance().writeFile(usersAccountList,"src/database/users.bin");
     }
+    public void editAccount(UsersAccount account,String newPassword){
+        account.setPassword(newPassword);
+        ReadAndWrite.getInstance().writeFile(usersAccountList,"src/database/users.bin");
+    }
 }

@@ -5,6 +5,7 @@ import controller.Management;
 import controller.AdminAccountManagement;
 import controller.UsersAccountManagement;
 import model.*;
+import org.jetbrains.annotations.NotNull;
 import storage.IReadAndWrite;
 import storage.IWriteLog;
 import storage.ReadAndWrite;
@@ -81,19 +82,12 @@ public class Client {
                                             loginSuccess = true;
                                         }
                                         if (loginSuccess) {
+                                            System.out.println("Đăng nhập thành công.");
                                             adminChoiceMenu();
-                                        } else {
-                                            loginFail++;
-                                            System.out.println("Sai tài khoản hoặc mật khẩu.");
-                                            System.out.println("Bạn đã nhập sai " + loginFail + "/3");
-                                            break;
                                         }
                                     }
-                                    if (loginFail == 3) {
-                                        System.out.println("Bạn đã nhập sai quá nhiều, chương trình sẽ tự động thoát sau 3s.");
-                                        Thread.sleep(3000);
-                                        System.exit(0);
-                                    }
+                                    loginFail = loginFailAlert(loginSuccess, loginFail);
+
                                 }
                                 case 2 -> System.exit(adminChoice);
                                 default -> management.inputValidateAlert();
@@ -147,58 +141,23 @@ public class Client {
                                                         """);
                                                 System.out.print("Mời nhập lựa chọn: ");
                                                 userMenu = scanner.nextInt();
-                                                int salary;
                                                 switch (userMenu) {
                                                     case 1 -> //display salary
                                                     {
-                                                        for (Employee employee : employees) {
-                                                            if (employee instanceof FullTimeEmployee) {
-                                                                if (employee.getId().equals(id)) {
-                                                                    salary = ((FullTimeEmployee) employee).salaryCount();
-                                                                    System.out.println("Tien luong thuc linh: " + salary);
-                                                                    break;
-                                                                }
-                                                            } else if (employee instanceof PartTimeEmployee) {
-                                                                if (employee.getId().equals(id)) {
-                                                                    salary = ((PartTimeEmployee) employee).salaryCount();
-                                                                    System.out.println("Tien luong thuc linh: " + salary);
-                                                                    break;
-                                                                }
-
-                                                            }
-                                                        }
+                                                        salaryDisplay(id);
                                                     }
                                                     case 2 -> {
-                                                        scanner.nextLine();
-                                                        System.out.print("Nhap mat khau hien tai:");
-                                                        String nowPassword = scanner.nextLine();
-                                                        if (nowPassword.equals(usersAccount.getPassword())) {
-                                                            System.out.print("Nhap mat khau moi: ");
-                                                            String newPassword = scanner.nextLine();
-                                                            System.out.print("Nhap lai mat khau moi: ");
-                                                            String confirmPassword = scanner.nextLine();
-                                                            if (newPassword.equals(confirmPassword)) {
-                                                                usersAccount.setPassword(newPassword);
-                                                                System.out.println("Mat khau da duoc thay doi.");
-                                                            }
-                                                        }
+                                                        changePassword(usersAccount);
                                                     }
                                                     default -> {
                                                         management.inputValidateAlert();
                                                     }
                                                 }
                                             } while (true);
-                                        } else {
-                                            loginFail++;
-                                            System.out.println("Sai tài khoản hoặc mật khẩu.");
-                                            break;
                                         }
                                     }
-                                    if (loginFail == 3) {
-                                        System.out.println("Bạn đã nhập sai quá nhiều, chương trình sẽ tự động thoát sau 3s.");
-                                        Thread.sleep(3000);
-                                        System.exit(0);
-                                    }
+                                    loginFail = loginFailAlert(loginSuccess, loginFail);
+
                                 }
                                 case 2 -> {
                                     System.out.println("2");
@@ -214,6 +173,54 @@ public class Client {
         } catch (Exception e) {
             System.err.println("Nhập lỗi, mời khởi động lại chương trình.");
         }
+    }
+
+    private static void changePassword(@NotNull UsersAccount usersAccount) {
+        scanner.nextLine();
+        System.out.print("Nhập mật khẩu hiện tại: ");
+        String nowPassword = scanner.nextLine();
+        if (nowPassword.equals(usersAccount.getPassword())) {
+            System.out.print("Nhập mật khẩu mới: ");
+            String newPassword = scanner.nextLine();
+            System.out.print("Nhập lại mật khẩu mới: ");
+            String confirmPassword = scanner.nextLine();
+            if (newPassword.equals(confirmPassword)) {
+                user.editAccount(usersAccount, newPassword);
+            }
+        }
+    }
+
+    private static void salaryDisplay(String id) {
+        int salary;
+        for (Employee employee : employees) {
+            if (employee instanceof FullTimeEmployee) {
+                if (employee.getId().equals(id)) {
+                    salary = ((FullTimeEmployee) employee).salaryCount();
+                    System.out.println("Tiền lương thực lĩnh: " + salary);
+                    break;
+                }
+            } else if (employee instanceof PartTimeEmployee) {
+                if (employee.getId().equals(id)) {
+                    salary = ((PartTimeEmployee) employee).salaryCount();
+                    System.out.println("Tiền lương thực lĩnh: " + salary);
+                    break;
+                }
+            }
+        }
+    }
+
+    private static int loginFailAlert(boolean loginSuccess, int loginFail) throws InterruptedException {
+        if (!loginSuccess) {
+            loginFail++;
+            System.out.println("Sai tài khoản hoặc mật khẩu.");
+            System.out.println("Bạn đã nhập sai " + loginFail + "/3");
+            if (loginFail == 3) {
+                System.out.println("Bạn đã nhập sai quá nhiều, chương trình sẽ tự động thoát sau 3s.");
+                Thread.sleep(3000);
+                System.exit(0);
+            }
+        }
+        return loginFail;
     }
 
     private static void delaySetting(int millis) {
