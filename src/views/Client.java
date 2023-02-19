@@ -29,12 +29,14 @@ public class Client {
     public static LocalDateTime now = LocalDateTime.now();
 
     public static void main(String[] args) {
-//        management.display();
+
+        management.display();
 //        defaultData();
-//        System.out.println(user.getUsersAccountList());
+        System.out.println(user.getUsersAccountList());
+//        System.out.println(employees.size());
         try {
-            int rollChoice;
-            int loginFailCount = 0;
+            int roleChoice;
+            int loginFailCount;
             do {
                 System.out.print("""
                         -------------------------------------
@@ -44,8 +46,8 @@ public class Client {
                         -------------------------------------
                         """);
                 System.out.print("Mời nhập lựa chọn: ");
-                rollChoice = scanner.nextInt();
-                switch (rollChoice) {
+                roleChoice = scanner.nextInt();
+                switch (roleChoice) {
                     case 0 -> //Exit
                     {
                         logWrite("Đã thoát khỏi chương trình.");
@@ -55,6 +57,7 @@ public class Client {
                     {
                         logWrite("Admin đã truy cập.");
                         int adminChoice;
+                        loginFailCount = 0;
                         do {
                             System.out.print("""
                                     -------------------------------------
@@ -74,6 +77,7 @@ public class Client {
                                     String password = scanner.nextLine();
                                     if (username.equals(accounts.get(0).getUsername()) &&
                                             password.equals(accounts.get(0).getPassword())) {
+                                        System.out.println("Đăng nhập thành công!");
                                         adminChoiceMenu();
                                     } else {
                                         loginFailCount = loginFailAlert(loginFailCount);
@@ -88,17 +92,21 @@ public class Client {
                     {
                         logWrite("Nhan vien da truy cap vao he thong.");
                         int usersChoice;
+                        loginFailCount = 0;
                         do {
                             System.out.println("""
                                     -------------------------------------
                                     |   1. Đăng nhập                    |
-                                    |   2. Thoát                        |
+                                    |   2. Tro ve                       |
+                                    |   3. Thoát                        |
                                     -------------------------------------
                                     """);
+                            System.out.print("Moi nhap lua chon: ");
                             usersChoice = scanner.nextInt();
                             int loginSuccess;
                             switch (usersChoice) {
-                                case 1 -> {
+                                case 1 -> //chua xong
+                                {
                                     loginSuccess = 0;
                                     System.out.print("Tài khoản: ");
                                     scanner.nextLine();
@@ -106,11 +114,12 @@ public class Client {
                                     System.out.print("Mật khẩu: ");
                                     String password = scanner.nextLine();
                                     int userIndex = 0;
+                                    String id = "";
                                     for (UsersAccount usersAccount : users) {
                                         if (username.equals(usersAccount.getUsername()) &&
                                                 password.equals(usersAccount.getPassword())) {
                                             userIndex = users.indexOf(usersAccount);
-
+                                            id = users.get(userIndex).getId();
                                             loginSuccess++;
                                         }
                                         if (loginSuccess == 1) {
@@ -124,49 +133,66 @@ public class Client {
                                                         |   2. Đổi mật khẩu             |
                                                         ---------------------------------
                                                         """);
-                                                System.out.println("Mời nhập lựa chọn");
+                                                System.out.print("Mời nhập lựa chọn: ");
                                                 userMenu = scanner.nextInt();
                                                 int salary;
                                                 switch (userMenu) {
-                                                    case 1 -> {
-                                                        for (int i = 0; i < employees.size(); i++) {
-                                                            if (employees.size() != 0) {
-                                                                if (employees.get(userIndex) instanceof FullTimeEmployee) {
-                                                                    salary = ((FullTimeEmployee) employees.get(userIndex)).salaryCount();
-                                                                    System.out.println(salary);
-                                                                    break;
-                                                                } else if (employees.get(userIndex) instanceof PartTimeEmployee) {
-                                                                    salary = ((PartTimeEmployee) employees.get(userIndex)).salaryCount();
-                                                                    System.out.println(salary);
+                                                    case 1 -> //display salary
+                                                    {
+                                                        for (Employee employee : employees) {
+                                                            if (employee instanceof FullTimeEmployee) {
+                                                                if (employee.getId().equals(id)) {
+                                                                    salary = ((FullTimeEmployee) employee).salaryCount();
+                                                                    System.out.println("Tien luong thuc linh: " + salary);
                                                                     break;
                                                                 }
-                                                            } else {
-                                                                System.out.println("Khong co du lieu.");
+                                                            } else if (employee instanceof PartTimeEmployee) {
+                                                                if (employee.getId().equals(id)) {
+                                                                    salary = ((PartTimeEmployee) employee).salaryCount();
+                                                                    System.out.println("Tien luong thuc linh: " + salary);
+                                                                    break;
+                                                                }
+
                                                             }
                                                         }
                                                     }
-                                                    case 2 -> System.out.println("2");
+                                                    case 2 -> {
+                                                        scanner.nextLine();
+                                                        System.out.print("Nhap mat khau hien tai:");
+                                                        String nowPassword = scanner.nextLine();
+                                                        if (nowPassword.equals(usersAccount.getPassword())) {
+                                                            System.out.print("Nhap mat khau moi: ");
+                                                            String newPassword = scanner.nextLine();
+                                                            System.out.print("Nhap lai mat khau moi: ");
+                                                            String confirmPassword = scanner.nextLine();
+                                                            if (newPassword.equals(confirmPassword)) {
+                                                                usersAccount.setPassword(newPassword);
+                                                                System.out.println("Mat khau da duoc thay doi.");
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
                                                     default -> {
                                                         management.inputValidateAlert();
                                                     }
                                                 }
                                             } while (true);
-
-
                                         }
                                     }
                                 }
-                                case 2 -> System.exit(0);
+                                case 2 -> {
+                                    System.out.println("2");
+                                }
+                                case 3 -> System.exit(0);
                                 default -> management.inputValidateAlert();
                             }
                         } while (usersChoice != 0);
                     }
                     default -> management.inputValidateAlert();
                 }
-            } while (rollChoice != 0);
+            } while (roleChoice != 0);
         } catch (Exception e) {
-            System.err.println("Nhập lỗi, mời khởi động lại chương xóa");
-
+            System.err.println("Nhập lỗi, mời khởi động lại chương trình.");
         }
     }
 
@@ -179,7 +205,6 @@ public class Client {
     }
 
     private static void adminChoiceMenu() {
-        System.out.println("Đăng nhập thành công!");
         logWrite("Admin đã đăng nhập thành công vào hệ thống!");
         delaySetting(1000);
         int success = 0;
@@ -205,19 +230,20 @@ public class Client {
                 }
                 case 1 -> displayMenu();
                 case 2 -> createNewEmployee();
-                case 3 -> editEmployeeById();
+                case 3 -> {
+                    scanner.nextLine();
+                    editEmployeeById();
+                }
                 case 4 -> deleteById();
                 case 5 -> findWithId();
                 case 9 -> System.out.println(1);//chua hoan thanh
-                case 99 -> management.deleteAllStaff();
+                case 99 -> {
+                    management.deleteAllStaff();
+                    user.deleteAllAccount();
+                }
                 default -> management.inputValidateAlert();
             }
         } while (true);
-    }
-
-    private static void logWrite(String message) {
-        String log = now.toString() + ": " + message;
-        logWrite.WriteLogFile(log);
     }
 
     private static int loginFailAlert(int loginFailCount) {
@@ -241,51 +267,58 @@ public class Client {
 
     private static void editEmployeeById() {
         System.out.print("Nhập vào ID nhân viên cần chỉnh sửa:");
-        scanner.nextLine();
         String findById = scanner.nextLine();
         int changeCount = 0;
 
         for (Employee employee : employees) {
             if (findById.equals(employee.getId())) {
                 changeCount++;
+                String id = findById;
+                management.removeEmployee(id);          //remove old employee
+                user.removeUserAccount(id);             // remove old user account
                 System.out.print("Nhập tên mới: ");
                 String name = scanner.nextLine();
-                employee.setName(name);
+
 
                 System.out.print("Nhập ngày sinh mới:");
                 String dateOfBirth = scanner.nextLine();
-                employee.setDateOfBirth(dateOfBirth);
+
 
                 System.out.print("Nhập vào số điện thoại mới: ");
                 String phoneNumber = scanner.nextLine();
-                employee.setPhoneNumbers(phoneNumber);
+
 
                 System.out.print("Nhập vào địa chỉ mới: ");
                 String address = scanner.nextLine();
-                employee.setAddress(address);
+
 
                 System.out.print("Nhập email mới: ");
                 String email = scanner.nextLine();
-                employee.setEmail(email);
+
                 if (employee instanceof FullTimeEmployee) {
                     System.out.print("Nhập lương cơ bản mới:");
                     int basicSalary = scanner.nextInt();
-                    ((FullTimeEmployee) employee).setBasicSalary(basicSalary);
+
 
                     System.out.print("Nhập lương thưởng mới: ");
                     int bonus = scanner.nextInt();
-                    ((FullTimeEmployee) employee).setBonus(bonus);
+
 
                     System.out.print("Nhập số tiền bị phạt: ");
                     int fine = scanner.nextInt();
-                    ((FullTimeEmployee) employee).setFine(fine);
+
+                    createNewFulltimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
+
+                    createUserAccount(id, name, dateOfBirth); //create new user account
                     System.out.println("Nhân viên có ID là '" + employee.getId() + "' đã được thay đổi thông tin thành công!");
                     return;
                 } else if (employee instanceof PartTimeEmployee) {
                     System.out.print("Nhập số giờ làm: ");
                     double workTime = scanner.nextDouble();
-                    ((PartTimeEmployee) employee).setWorkTimes(workTime);
 
+                    createNewParttimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workTime);
+
+                    createUserAccount(id, name, dateOfBirth); // create new user account
                     System.out.println("Nhân viên có ID là '" + employee.getId() + "' đã được thay đổi thông tin thành công!");
                     return;
                 }
@@ -297,83 +330,48 @@ public class Client {
         }
     }
 
-    private static void deleteById() {
+    private static void deleteById() //remove the employee and remove employee's account
+    {
         System.out.println("Xóa nhân viên theo ID id.");
         System.out.print("Nhập ID nhân viên cần xóa: ");
         scanner.nextLine();
         String id = scanner.nextLine();
         management.removeEmployee(id);
-    }
-
-    private static void displayMenu() {
-        logWrite("Admin đã truy cập vào menu hiển thị.");
-        int displayChoice;
-        do {
-            System.out.println("""
-                    ----------------------------------------------------
-                    |   1. Hiển thị toàn bộ nhân viên                  |
-                    |   2. Hiển thị toàn bộ nhân viên chính thức       |
-                    |   3. Hiển thị toàn bộ nhân viên part-time        |
-                    |   4. Trở về menu trước                           |
-                    |   5. Thoát khỏi chương trình                     |
-                    ----------------------------------------------------
-                    """);
-            System.out.print("Mời nhập lựa chọn: ");
-            displayChoice = scanner.nextInt();
-            switch (displayChoice) {
-                case 1 -> {
-                    if (management != null) {
-                        management.display();
-                        logWrite("Admin đã lựa chọn hiển thị toàn bộ nhân viên.");
-                    } else {
-                        System.out.println("Không có nhân viên nào trong danh sách");
-                        logWrite("Không có nhân viên nào trong danh sách");
-                    }
-                }
-                case 2 -> {
-                    if (management != null) {
-                        management.fulltimeEmployeeDisplay();
-                        logWrite("Admin đã lựa chọn hiển thị toàn bộ nhân viên chính thức.");
-                    } else {
-                        System.out.println("Không có nhân viên nào trong danh sách");
-                        logWrite("Không có nhân viên nào trong danh sách");
-                    }
-                }
-                case 3 -> {
-                    if (management != null) {
-                        management.parttimeEmployeeDisplay();
-                        logWrite("Admin đã lựa chọn hiển thị toàn bộ nhân viên bán thời gian.");
-                    } else {
-                        System.out.println("Không có nhân viên nào trong danh sách");
-                        logWrite("Không có nhân viên nào trong danh sách");
-                    }
-                }
-                case 4 -> adminChoiceMenu();
-                case 5 -> {
-                    logWrite("Admin đã thoát khỏi chương trình");
-                    System.exit(0);
-                }
-                default -> management.inputValidateAlert();
-            }
-        } while (displayChoice != 0);
+        user.removeUserAccount(id);
+        System.out.println("Nhân viên có " + id + " đã được xóa thành công.");
     }
 
     private static void createNewEmployee() {
         logWrite("Admin đã lựa chọn menu thêm mới nhân viên");
         int role = 0;
+
         do {
             System.out.println("Lựa chọn vai trò:");
             System.out.println("Nhân viên chính thức/part-time (1/2):");
             role = scanner.nextInt();
 
             if (role != 1 && role != 2) {
-                System.out.println("Gia tri khong hop le, moi nhap lai.");
-                logWrite("Nhap role nhan vien sai");
+                System.out.println("Giá trị không hợp lệ, mời nhập lại.");
+                logWrite("Nhập vai trò sai.");
             }
         } while (role != 1 && role != 2);
         scanner.nextLine();
-        System.out.println("Nhập mã nhân viên: ");
-        String id = scanner.nextLine();
+        String id = "";
+        int checkIdValid;
+        do {
+            checkIdValid = 0;
+            System.out.println("Nhập mã nhân viên: ");
+            id = scanner.nextLine();
+            for (Employee employee : employees) {
+                if (employee.getId().equals(id)) {
+                    checkIdValid++;
+                }
+            }
+            if (checkIdValid != 0) {
+                System.out.println("ID này đã tồn tại, mời nhập lại ID khác.");
+
+            }
+        } while (checkIdValid != 0);
         System.out.println("Nhập tên nhân viên: ");
         String name = scanner.nextLine();
         System.out.println("Ngày sinh (dd/mm/yyyy): ");
@@ -391,31 +389,103 @@ public class Client {
             int bonus = scanner.nextInt();
             System.out.print("Nhập số tiền bị phạt tháng này: ");
             int fine = scanner.nextInt();
-            Employee employeeInput = new FullTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
-            management.addEmployee(employeeInput);
-            System.out.println("Đã thêm nhân viên " + name + " vào vị trí nhân viên chính thức.");
-            logWrite("Admin đã thêm mới nhân viên chính thức.");
+            createNewFulltimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
             createUserAccount(id, name, dateOfBirth);
 
         } else if (role == 2) {
             System.out.println("Nhập số giờ làm: ");
             double workedTime = scanner.nextDouble();
-            Employee employeeInput = new PartTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workedTime);
-            management.addEmployee(employeeInput);
-            System.out.println("Đã thêm mới nhân viên " + name + " vào vị trí nhân viên part-time");
-            logWrite("Admin đã thêm mới nhân viên part-time.");
+            createNewParttimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workedTime);
             createUserAccount(id, name, dateOfBirth);
 
         }
     }
 
-    private static void createUserAccount(String id, String name, String dateOfBirth) {
+    private static void createNewParttimeEmployee(String id, String name, String dateOfBirth, String phoneNumber, String address, String email, double workedTime) {
+        Employee employeeInput = new PartTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workedTime);
+        management.addEmployee(employeeInput);
+        System.out.println("Đã thêm mới nhân viên " + name + " vào vị trí nhân viên part-time");
+        logWrite("Admin đã thêm mới nhân viên part-time.");
+    }
+
+    private static void createNewFulltimeEmployee(String id, String name, String dateOfBirth, String phoneNumber, String address, String email, int basicSalary, int bonus, int fine) {
+        Employee employeeInput = new FullTimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
+        management.addEmployee(employeeInput);
+        System.out.println("Đã thêm nhân viên " + name + " vào vị trí nhân viên chính thức.");
+        logWrite("Admin đã thêm mới nhân viên chính thức.");
+    }
+
+    private static void createUserAccount(String id, String name, String dateOfBirth) //create new user account
+    {
         String username = user.employeeAccountGeneration(name, dateOfBirth);
         String password = dateOfBirth.replaceAll("/", "");
         UsersAccount userAccount = new UsersAccount(id, username, password);
         user.setUserAccount(userAccount);
         System.out.println("Đã tạo thành công tài khoản cho nhân viên có ID '" + id + "'");
         logWrite("Admin đã tạo mới thành công tài khoản cho nhân viên có ID '" + id + "'");
+    }
+
+    private static void displayMenu() //display menu
+    {
+        logWrite("Admin đã truy cập vào menu hiển thị.");
+        int displayChoice;
+        do {
+            System.out.println("""
+                    ----------------------------------------------------
+                    |   1. Hiển thị toàn bộ nhân viên                  |
+                    |   2. Hiển thị toàn bộ nhân viên chính thức       |
+                    |   3. Hiển thị toàn bộ nhân viên part-time        |
+                    |   4. Trở về menu trước                           |
+                    |   5. Thoát khỏi chương trình                     |
+                    ----------------------------------------------------
+                    """);
+            System.out.print("Mời nhập lựa chọn: ");
+            displayChoice = scanner.nextInt();
+            switch (displayChoice) {
+                case 1 -> //display all
+                {
+                    if (management != null) {
+                        management.display();
+                        logWrite("Admin đã lựa chọn hiển thị toàn bộ nhân viên.");
+                    } else {
+                        System.out.println("Không có nhân viên nào trong danh sách");
+                        logWrite("Không có nhân viên nào trong danh sách");
+                    }
+                }
+                case 2 -> //display fulltime employee
+                {
+                    if (management != null) {
+                        management.fulltimeEmployeeDisplay();
+                        logWrite("Admin đã lựa chọn hiển thị toàn bộ nhân viên chính thức.");
+                    } else {
+                        System.out.println("Không có nhân viên nào trong danh sách");
+                        logWrite("Không có nhân viên nào trong danh sách");
+                    }
+                }
+                case 3 -> //display parttime employee
+                {
+                    if (management != null) {
+                        management.parttimeEmployeeDisplay();
+                        logWrite("Admin đã lựa chọn hiển thị toàn bộ nhân viên bán thời gian.");
+                    } else {
+                        System.out.println("Không có nhân viên nào trong danh sách");
+                        logWrite("Không có nhân viên nào trong danh sách");
+                    }
+                }
+                case 4 -> adminChoiceMenu();//return admin choice menu
+                case 5 -> //exit
+                {
+                    logWrite("Admin đã thoát khỏi chương trình");
+                    System.exit(0);
+                }
+                default -> management.inputValidateAlert();
+            }
+        } while (displayChoice != 0);
+    }
+
+    private static void logWrite(String message) {
+        String log = now.toString() + ": " + message;
+        logWrite.WriteLogFile(log);
     }
 
     private static void defaultData() {
@@ -428,6 +498,8 @@ public class Client {
                 "email2@gmail.com", 15.5);
         management.addEmployee(test1);
         management.addEmployee(test2);
+        createUserAccount("1", "test", "01/01/1991");
+        createUserAccount("2", "test2", "02/02/1991");
         logWrite("Đã khởi tạo thành công default data.");
-    }
+    }//create default data
 }

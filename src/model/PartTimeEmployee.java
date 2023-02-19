@@ -29,6 +29,6 @@ public class PartTimeEmployee extends Employee implements SalaryCount, Serializa
 
     @Override
     public int salaryCount() {
-        return (int) (workTimes * 100000);
+        return (int) (getWorkTimes() * 100000);
     }
 }

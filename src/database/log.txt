@@ -1,2 +1,130 @@
 2023-02-18T22:41:45.924556: Đã khởi tạo thành công tài khoản admin.
 2023-02-18T22:41:45.924556: Đã khởi tạo thành công default data.
+2023-02-18T22:51:34.815819: Admin đã truy cập.
+2023-02-18T22:51:34.815819: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-18T22:51:34.815819: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-18T22:51:34.815819: Admin đã thêm mới nhân viên chính thức.
+2023-02-18T22:51:34.815819: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '1'
+2023-02-18T22:51:34.815819: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-18T22:51:34.815819: Admin đã thêm mới nhân viên part-time.
+2023-02-18T22:51:34.815819: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '2'
+2023-02-18T22:51:34.815819: Admin đã truy cập vào menu hiển thị.
+2023-02-18T22:51:34.815819: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-18T22:51:34.815819: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-18T22:51:34.815819: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-18T22:51:34.815819: Nhap role nhan vien sai
+2023-02-19T10:09:07.712138: Admin đã truy cập.
+2023-02-19T10:09:07.712138: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:09:07.712138: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T10:09:38.615485: Admin đã truy cập.
+2023-02-19T10:11:26.542039: Đã khởi tạo thành công tài khoản admin.
+2023-02-19T10:11:26.542039: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '1'
+2023-02-19T10:11:26.542039: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '2'
+2023-02-19T10:11:26.542039: Đã khởi tạo thành công default data.
+2023-02-19T10:12:21.395729: Nhan vien da truy cap vao he thong.
+2023-02-19T10:12:34.542106: Nhan vien da truy cap vao he thong.
+2023-02-19T10:13:25.178876: Admin đã truy cập.
+2023-02-19T10:13:25.178876: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:13:25.178876: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T10:13:25.178876: Admin đã thêm mới nhân viên chính thức.
+2023-02-19T10:13:25.178876: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '3'
+2023-02-19T10:13:25.178876: Admin đã truy cập vào menu hiển thị.
+2023-02-19T10:13:25.178876: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-19T10:13:25.178876: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:13:25.178876: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T10:13:25.178876: Admin đã thêm mới nhân viên part-time.
+2023-02-19T10:13:25.178876: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '4'
+2023-02-19T10:18:19.054359: Nhan vien da truy cap vao he thong.
+2023-02-19T10:23:21.262650: Nhan vien da truy cap vao he thong.
+2023-02-19T10:24:17.236048: Nhan vien da truy cap vao he thong.
+2023-02-19T10:28:17.121975: Nhan vien da truy cap vao he thong.
+2023-02-19T10:30:50.432752: Nhan vien da truy cap vao he thong.
+2023-02-19T10:38:26.339792: Nhan vien da truy cap vao he thong.
+2023-02-19T10:40:07.236380: Admin đã truy cập.
+2023-02-19T10:40:07.236380: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:41:57.739975: Admin đã truy cập.
+2023-02-19T10:41:57.739975: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:42:22.119474: Admin đã truy cập.
+2023-02-19T10:42:22.119474: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:43:18.548419: Admin đã truy cập.
+2023-02-19T10:43:18.548419: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:43:18.548419: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '4'
+2023-02-19T10:43:18.548419: Admin đã truy cập vào menu hiển thị.
+2023-02-19T10:43:18.548419: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-19T10:56:06.975974: Admin đã truy cập.
+2023-02-19T10:56:06.975974: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:57:31.635342: Admin đã truy cập.
+2023-02-19T10:57:31.635342: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T10:58:44.795640: Admin đã truy cập.
+2023-02-19T11:00:54.245513: Admin đã truy cập.
+2023-02-19T11:00:54.245513: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T11:00:54.245513: Admin đã truy cập vào menu hiển thị.
+2023-02-19T11:02:43.559964: Admin đã truy cập.
+2023-02-19T11:02:43.559964: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T11:02:56.853360: Admin đã truy cập.
+2023-02-19T11:02:56.853360: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T11:02:56.853360: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T11:02:56.853360: Admin đã thêm mới nhân viên chính thức.
+2023-02-19T11:02:56.853360: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '1'
+2023-02-19T11:02:56.853360: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T11:07:31.007907: Admin đã truy cập.
+2023-02-19T11:07:31.007907: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T11:07:31.007907: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T11:09:42.802746: Admin đã truy cập.
+2023-02-19T11:09:42.802746: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T11:09:42.802746: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T11:11:17.347337: Admin đã truy cập.
+2023-02-19T11:11:17.347337: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T11:11:17.347337: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T11:11:17.347337: Admin đã thêm mới nhân viên part-time.
+2023-02-19T11:11:17.347337: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '2'
+2023-02-19T11:45:14.411175: Admin đã truy cập.
+2023-02-19T11:45:14.411175: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T11:45:14.411175: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '2'
+2023-02-19T12:06:46.101616: Admin đã truy cập.
+2023-02-19T12:06:46.101616: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T12:07:47.627367: Admin đã truy cập.
+2023-02-19T12:07:47.627367: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T12:07:47.627367: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T12:07:47.627367: Admin đã thêm mới nhân viên part-time.
+2023-02-19T12:07:47.627367: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '2'
+2023-02-19T12:09:10.055883: Admin đã truy cập.
+2023-02-19T12:09:10.055883: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T12:09:10.055883: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T12:09:10.055883: Admin đã thêm mới nhân viên part-time.
+2023-02-19T12:09:10.055883: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '2'
+2023-02-19T12:09:10.055883: Admin đã truy cập vào menu hiển thị.
+2023-02-19T12:09:10.055883: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-19T12:09:10.055883: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T12:09:10.055883: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T12:09:10.055883: Admin đã thêm mới nhân viên part-time.
+2023-02-19T12:09:10.055883: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '3'
+2023-02-19T12:11:33.635480: Admin đã truy cập.
+2023-02-19T12:11:33.635480: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T12:11:33.635480: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T12:11:33.635480: Nhập vai trò sai.
+2023-02-19T12:11:33.635480: Nhập vai trò sai.
+2023-02-19T12:11:33.635480: Nhập vai trò sai.
+2023-02-19T12:11:33.635480: Admin đã thêm mới nhân viên part-time.
+2023-02-19T12:11:33.635480: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '2'
+2023-02-19T12:11:33.635480: Admin đã truy cập vào menu hiển thị.
+2023-02-19T12:11:33.635480: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-19T12:11:33.635480: Admin đã lựa chọn hiển thị toàn bộ nhân viên chính thức.
+2023-02-19T12:11:33.635480: Admin đã lựa chọn hiển thị toàn bộ nhân viên bán thời gian.
+2023-02-19T12:11:33.635480: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T12:11:33.635480: Admin đã thêm mới nhân viên part-time.
+2023-02-19T12:11:33.635480: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '2'
+2023-02-19T12:13:38.375798: Nhan vien da truy cap vao he thong.
+2023-02-19T12:19:24.215695: Admin đã truy cập.
+2023-02-19T12:19:24.215695: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-19T12:19:24.215695: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-19T12:19:56.062109: Nhan vien da truy cap vao he thong.
+2023-02-19T12:22:33.217119: Nhan vien da truy cap vao he thong.
+2023-02-19T12:24:05.571137: Nhan vien da truy cap vao he thong.
+2023-02-19T12:24:25.717777: Nhan vien da truy cap vao he thong.
+2023-02-19T12:25:05.500225: Nhan vien da truy cap vao he thong.
+2023-02-19T12:25:35.888819: Nhan vien da truy cap vao he thong.
+2023-02-19T12:26:52.762192: Nhan vien da truy cap vao he thong.
+2023-02-19T12:28:40.631614: Nhan vien da truy cap vao he thong.
+2023-02-19T12:34:31.289355: Nhan vien da truy cap vao he thong.
+2023-02-19T12:34:50.484079: Nhan vien da truy cap vao he thong.

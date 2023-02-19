@@ -10,8 +10,8 @@ public class FullTimeEmployee extends Employee implements SalaryCount, Serializa
     public FullTimeEmployee() {
     }
 
-    public FullTimeEmployee(String id, String name, String dateOfBirth, String phoneNumbers, String address, String email, int basicSalary, int bonus, int fine) {
-        super(id, name, dateOfBirth, phoneNumbers, address, email);
+    public FullTimeEmployee(String id,String name, String dateOfBirth, String phoneNumbers, String address, String email, int basicSalary, int bonus, int fine) {
+        super(id,name, dateOfBirth, phoneNumbers, address, email);
         this.basicSalary = basicSalary;
         this.bonus = bonus;
         this.fine = fine;
@@ -44,13 +44,13 @@ public class FullTimeEmployee extends Employee implements SalaryCount, Serializa
     @Override
     public String toString() {
         return super.toString() + ",\n vai tro: nhan vien chinh thuc" +
-                ", luong cung: " + basicSalary + "vnd" +
-                ", luong thuong: " + bonus + "vnd" +
-                ", phat " + fine + "vnd";
+                ", luong cung: " + getBasicSalary() + "vnd" +
+                ", luong thuong: " + getBonus() + "vnd" +
+                ", phat " + getFine() + "vnd";
     }
 
     @Override
     public int salaryCount() {
-        return basicSalary + bonus - fine;
+        return getBasicSalary() + getBonus() - getFine();
     }
 }

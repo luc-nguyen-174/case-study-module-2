@@ -21,7 +21,7 @@ public class UsersAccountManagement {
     }
 
     public String employeeAccountGeneration(String name, String dateOfBirth) {
-        name = name.toLowerCase().replaceAll("\\s","");
+        name = name.toLowerCase().replaceAll("\\s", "");
         dateOfBirth = dateOfBirth.replaceAll("/", "");
         String[] arr = {"á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",
                 "đ", "é", "è", "ẻ", "ẽ", "ẹ", "ê", "ế", "ề", "ể", "ễ", "ệ",
@@ -40,8 +40,22 @@ public class UsersAccountManagement {
         }
         return name + dateOfBirth;
     }
+
     public void setUserAccount(UsersAccount account) {
         usersAccountList.add(account);
+        ReadAndWrite.getInstance().writeFile(usersAccountList, "src/database/users.bin");
+    }
+
+    public void removeUserAccount(String id) {
+        for (int i = 0; i < usersAccountList.size(); i++) {
+            if (usersAccountList.get(i).getId().equals(id)) {
+                usersAccountList.remove(i);
+            }
+        }
+        ReadAndWrite.getInstance().writeFile(usersAccountList,"src/database/users.bin");
+    }
+    public void deleteAllAccount(){
+        usersAccountList.clear();
         ReadAndWrite.getInstance().writeFile(usersAccountList,"src/database/users.bin");
     }
 }
