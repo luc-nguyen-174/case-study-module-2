@@ -69,7 +69,9 @@ public class Management implements Serializable {
         }
     }
     public void deleteAllStaff(){
+
         employeeList.clear();
+        System.out.println("Đã xóa tất cả thành viên.");
         ReadAndWrite.getInstance().writeFile(employeeList,"src/database/management.bin");
     }
     public void inputValidateAlert(){

@@ -1,5 +1,6 @@
 package views;
 
+import com.sun.security.jgss.GSSUtil;
 import controller.Management;
 
 import controller.AdminAccountManagement;
@@ -23,11 +24,11 @@ public class Client {
     public static IReadAndWrite<List<Employee>> employeeIReadAndWrite = ReadAndWrite.getInstance();
     public static List<Employee> employees = employeeIReadAndWrite.readFile("src/database/management.bin");
     public static IReadAndWrite<List<AdminAccount>> adminAccountIReadAndWrite = ReadAndWrite.getInstance();
-    public static List<AdminAccount> accounts = adminAccountIReadAndWrite.readFile("src/database/admin.bin");
+    public static List<AdminAccount> adminAccounts = adminAccountIReadAndWrite.readFile("src/database/admin.bin");
     public static IReadAndWrite<List<UsersAccount>> usersIReadAndWrite = ReadAndWrite.getInstance();
     public static List<UsersAccount> users = usersIReadAndWrite.readFile("src/database/users.bin");
     public static Management management = new Management(employees);
-    public static AdminAccountManagement admin = new AdminAccountManagement(accounts);
+    public static AdminAccountManagement admin = new AdminAccountManagement(adminAccounts);
     public static UsersAccountManagement user = new UsersAccountManagement(users);
     public static LocalDateTime now = LocalDateTime.now();
     private static final String DATEOFBIRTH_VALIDATION = "(^(((0[1-9]|1[0-9]|2[0-8])[\\/](0[1-9]|1[012]))|((29|30|31)[\\/](0[13578]|1[02]))|((29|30)[\\/](0[4,6,9]|11)))[\\/](19|[2-9][0-9])\\d\\d$)|(^29[\\/]02[\\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)";
@@ -38,7 +39,7 @@ public class Client {
 
 //        defaultData();
 //        management.display();
-//        System.out.println(user.getUsersAccountList());
+        System.out.println(user.getUsersAccountList());
         menu();
     }
 
@@ -52,7 +53,7 @@ public class Client {
                         -------------------------------------
                         |  1. Admin                         |
                         |  2. Nhân viên                     |
-                        |  0. Thoat                         |
+                        |  0. Thoát                         |
                         -------------------------------------
                         """);
                 System.out.print("Mời nhập lựa chọn: ");
@@ -85,7 +86,7 @@ public class Client {
                                     String username = scanner.nextLine();
                                     System.out.print("Mật khẩu: ");
                                     String password = scanner.nextLine();
-                                    for (AdminAccount account : accounts) {
+                                    for (AdminAccount account : adminAccounts) {
                                         if (username.equals(account.getUsername()) &&
                                                 password.equals(account.getPassword())) {
                                             loginSuccess = true;
@@ -96,12 +97,15 @@ public class Client {
                                         }
                                     }
                                     loginFail = loginFailAlert(loginSuccess, loginFail);
-
                                 }
                                 case 2 -> {
+                                    logWrite("Admin đã lựa chọn trở về menu chọn vai trò.");
                                     menu();
                                 }
-                                case 3 -> System.exit(adminChoice);
+                                case 3 -> {
+                                    logWrite("Admin đã thoát");
+                                    System.exit(adminChoice);
+                                }
                                 default -> management.inputValidateAlert();
                             }
                         } while (adminChoice != 0);
@@ -122,6 +126,7 @@ public class Client {
                             System.out.print("Mời nhập lựa chọn: ");
                             usersChoice = scanner.nextInt();
 
+                            String id = "";
                             switch (usersChoice) {
                                 case 1 -> {
                                     System.out.print("Tài khoản: ");
@@ -130,7 +135,6 @@ public class Client {
                                     System.out.print("Mật khẩu: ");
                                     String password = scanner.nextLine();
                                     int userIndex;
-                                    String id = "";
 
                                     for (UsersAccount usersAccount : users) {
                                         if (username.equals(usersAccount.getUsername()) &&
@@ -141,6 +145,7 @@ public class Client {
                                         }
                                         if (loginSuccess) {
                                             System.out.println("Đăng nhập thành công.");
+                                            logWrite(usersAccount.getUsername() + " đã đăng nhập thành công.");
                                             userMenu(id, usersAccount);
                                         }
                                     }
@@ -149,7 +154,9 @@ public class Client {
                                 case 2 -> {
                                     menu();
                                 }
-                                case 3 -> System.exit(0);
+                                case 3 -> {
+                                    System.exit(0);
+                                }
                                 default -> management.inputValidateAlert();
                             }
                         } while (usersChoice != 0);
@@ -194,10 +201,25 @@ public class Client {
                 }
                 case 4 -> deleteById();
                 case 5 -> findWithId();
-                case 9 -> menu();
+                case 9 -> {
+                    System.out.println("Đang đăng xuất.");
+                    logWrite("Admin đã đăng xuất.");
+                    delaySetting(500);
+                    menu();
+                }
                 case 99 -> {
-                    management.deleteAllStaff();
-                    user.deleteAllAccount();
+                    System.err.println("Cảnh báo: ");
+                    System.out.print("Bạn có đồng ý xóa tất cả thành viên (1/2): ");
+                    scanner.nextLine();
+                    int confirm = scanner.nextInt();
+                    if (confirm == 1) {
+                        management.deleteAllStaff();
+                        logWrite("Đã xóa tất cả thành viên.");
+                        user.deleteAllAccount();
+                        logWrite("Đã xóa tất cả tài khoản thành viên");
+                    } else if (confirm == 2) {
+                        adminChoiceMenu();
+                    }
                 }
                 default -> management.inputValidateAlert();
             }
@@ -220,13 +242,18 @@ public class Client {
             switch (userMenu) {
                 case 1 -> //display salary
                 {
+                    logWrite(usersAccount.getUsername() + " đã chọn hiển thị lương.");
                     salaryDisplay(id);
                 }
                 case 2 -> //change password
                 {
+                    logWrite(usersAccount.getUsername() + " đã chọn thay đổi mật khẩu.");
                     changePassword(usersAccount);
                 }
-                case 3 -> menu();
+                case 3 -> {
+                    logWrite("Đã đăng xuất.");
+                    menu();
+                }
                 default -> {
                     management.inputValidateAlert();
                 }
@@ -245,6 +272,8 @@ public class Client {
             String confirmPassword = scanner.nextLine();
             if (newPassword.equals(confirmPassword)) {
                 user.editAccount(usersAccount, newPassword);
+                System.out.println("Đã thay đổi mật khẩu thành công.");
+                logWrite(usersAccount.getUsername() + " đã thay đổi mật khẩu.");
             }
         }
     }
@@ -271,6 +300,7 @@ public class Client {
     private static int loginFailAlert(boolean loginSuccess, int loginFail) throws InterruptedException {
         if (!loginSuccess) {
             loginFail++;
+            logWrite("Đăng nhập thất bại.");
             System.out.println("Sai tài khoản hoặc mật khẩu.");
             System.out.println("Bạn đã nhập sai " + loginFail + "/3");
             if (loginFail == 3) {
@@ -297,6 +327,13 @@ public class Client {
         scanner.nextLine();
         String id = scanner.nextLine();
         management.findWithId(id);
+        System.out.print("Bạn có muốn tiếp tục tìm (1/2):");
+        int confirm = scanner.nextInt();
+        if (confirm == 1) {
+            findWithId();
+        } else if (confirm == 2) {
+            adminChoiceMenu();
+        }
     }
 
     private static void editEmployeeById() {
@@ -367,6 +404,13 @@ public class Client {
             System.out.println("ID vừa nhập không tồn tại.");
             editEmployeeById();
         }
+        System.out.print("Bạn có muốn tiếp tục sửa (1/2):");
+        int confirm = scanner.nextInt();
+        if (confirm == 1) {
+            editEmployeeById();
+        } else if (confirm == 2) {
+            adminChoiceMenu();
+        }
     }
 
     private static void deleteById() //remove the employee and remove employee's account
@@ -378,6 +422,13 @@ public class Client {
         management.removeEmployee(id);
         user.removeUserAccount(id);
         System.out.println("Nhân viên có " + id + " đã được xóa thành công.");
+        System.out.print("Bạn có muốn tiếp tục xóa (1/2):");
+        int confirm = scanner.nextInt();
+        if (confirm == 1) {
+            deleteById();
+        } else if (confirm == 2) {
+            adminChoiceMenu();
+        }
     }
 
     private static void createNewEmployee() {
@@ -413,13 +464,18 @@ public class Client {
             int fine = scanner.nextInt();
             createNewFulltimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, basicSalary, bonus, fine);
             createUserAccount(id, name, dateOfBirth);
-
         } else if (role == 2) {
             System.out.println("Nhập số giờ làm: ");
             double workedTime = scanner.nextDouble();
             createNewParttimeEmployee(id, name, dateOfBirth, phoneNumber, address, email, workedTime);
             createUserAccount(id, name, dateOfBirth);
-
+        }
+        System.out.print("Bạn có muốn thêm nhân viên mới (1/2):");
+        int confirm = scanner.nextInt();
+        if (confirm == 1) {
+            createNewEmployee();
+        } else if (confirm == 2) {
+            adminChoiceMenu();
         }
     }
 
@@ -544,6 +600,7 @@ public class Client {
         if (matcher.find()) {
             return dateOfBirth;
         } else {
+            logWrite("Nhập vào ngày sinh không hợp lệ.");
             System.out.println("Ngày sinh không hợp lệ, mời nhập lại (dd/mm/yyyy): ");
             return checkDateValidate();
         }
@@ -556,6 +613,7 @@ public class Client {
         if (matcher.find()) {
             return phoneNumber;
         } else {
+            logWrite("Nhập vào số điện thoại không hợp lệ.");
             System.out.println("Số điện thoại không hợp lệ, mời nhập lại: ");
             return checkPhoneValidate();
         }
@@ -568,6 +626,7 @@ public class Client {
         if (matcher.find()) {
             return email;
         } else {
+            logWrite("Nhập vào địa chỉ email không hợp lệ.");
             System.out.println("Email không hợp lệ, mời nhập lại (xxx@xxx.com): ");
             return checkEmailValidate();
         }

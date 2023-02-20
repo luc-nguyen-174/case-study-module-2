@@ -246,3 +246,72 @@
 2023-02-19T23:42:35.095393: Admin đã lựa chọn menu thêm mới nhân viên
 2023-02-19T23:42:35.095393: Admin đã thêm mới nhân viên part-time.
 2023-02-19T23:42:35.095393: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '4'
+2023-02-20T08:15:38.064155: Nhân viên đã truy cập vào hệ thống.
+2023-02-20T08:16:45.147566: Nhân viên đã truy cập vào hệ thống.
+2023-02-20T08:23:59.913170: Admin đã truy cập.
+2023-02-20T08:25:05.414678: Admin đã truy cập.
+2023-02-20T08:25:05.414678: Admin đã lựa chọn trở về menu chọn vai trò.
+2023-02-20T08:25:05.414678: Admin đã truy cập.
+2023-02-20T08:25:05.414678: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:25:48.014506: Admin đã truy cập.
+2023-02-20T08:25:48.014506: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:25:48.014506: Admin đã truy cập vào menu hiển thị.
+2023-02-20T08:25:48.014506: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:32:15.496564: Admin đã truy cập.
+2023-02-20T08:32:15.496564: Đăng nhập thất bại.
+2023-02-20T08:32:28.333793: Admin đã truy cập.
+2023-02-20T08:32:28.333793: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:32:28.333793: Admin đã đăng xuất.
+2023-02-20T08:32:28.333793: Admin đã truy cập.
+2023-02-20T08:32:28.333793: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:38:15.443444: Admin đã truy cập.
+2023-02-20T08:38:15.443444: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:38:15.443444: Admin đã truy cập vào menu hiển thị.
+2023-02-20T08:38:15.443444: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-20T08:39:08.590211: Admin đã truy cập.
+2023-02-20T08:39:08.590211: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:39:40.216199: Admin đã truy cập.
+2023-02-20T08:39:40.216199: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:40:03.739202: Admin đã truy cập.
+2023-02-20T08:40:03.739202: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T08:40:23.494666: Admin đã truy cập.
+2023-02-20T08:40:23.494666: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T09:27:23.016582: Nhân viên đã truy cập vào hệ thống.
+2023-02-20T09:27:23.016582: test111111991 đã đăng nhập thành công.
+2023-02-20T09:27:23.016582: test111111991 đã chọn thay đổi mật khẩu.
+2023-02-20T09:27:23.016582: test111111991 đã thay đổi mật khẩu.
+2023-02-20T09:27:23.016582: test111111991 đã chọn hiển thị lương.
+2023-02-20T09:48:05.205456: Admin đã truy cập.
+2023-02-20T09:48:05.205456: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T09:48:05.205456: Admin đã truy cập vào menu hiển thị.
+2023-02-20T09:48:05.205456: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-20T09:48:05.205456: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T09:53:02.599557: Admin đã truy cập.
+2023-02-20T09:53:02.599557: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T09:53:02.599557: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-20T09:53:02.599557: Admin đã thêm mới nhân viên part-time.
+2023-02-20T09:53:02.599557: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '5'
+2023-02-20T09:54:22.139867: Admin đã truy cập.
+2023-02-20T09:54:22.139867: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T09:54:22.139867: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-20T09:54:22.139867: Admin đã thêm mới nhân viên part-time.
+2023-02-20T09:54:22.139867: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '6'
+2023-02-20T09:55:59.180723: Admin đã truy cập.
+2023-02-20T09:55:59.180723: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T09:56:40.393944: Admin đã truy cập.
+2023-02-20T09:56:40.393944: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T09:56:40.393944: Admin đã lựa chọn menu thêm mới nhân viên
+2023-02-20T09:56:40.393944: Admin đã thêm mới nhân viên part-time.
+2023-02-20T09:56:40.393944: Admin đã tạo mới thành công tài khoản cho nhân viên có ID '6'
+2023-02-20T10:03:48.392594: Admin đã truy cập.
+2023-02-20T10:03:48.392594: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T10:04:37.161835: Admin đã truy cập.
+2023-02-20T10:04:37.161835: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T10:04:37.161835: Admin đã truy cập vào menu hiển thị.
+2023-02-20T10:04:37.161835: Admin đã lựa chọn hiển thị toàn bộ nhân viên.
+2023-02-20T10:04:37.161835: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T10:08:54.767304: Admin đã truy cập.
+2023-02-20T10:08:54.767304: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T10:11:38.805522: Admin đã truy cập.
+2023-02-20T10:11:38.805522: Admin đã đăng nhập thành công vào hệ thống!
+2023-02-20T10:11:38.805522: Admin đã đăng nhập thành công vào hệ thống!

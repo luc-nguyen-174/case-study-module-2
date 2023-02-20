@@ -72,12 +72,12 @@ public abstract class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "Nhan vien " +
-                "id: " + id +
-                ", ten: " + name +
-                ", ngay sinh: " + dateOfBirth +
-                ", so dien thoai: " + phoneNumbers +
-                ", dia chi: " + address +
+        return "Nhân viên:" +
+                " ID: " + id +
+                ", tên: " + name +
+                ", ngày sinh: " + dateOfBirth +
+                ", số điện thoại: " + phoneNumbers +
+                ", địa chỉ: " + address +
                 ", email: " + email;
     }
 }
